@@ -31,15 +31,26 @@ def get_places():
 def place_location():
     ''' 
     Get the location (latitude, longitude) of some text. We query geocodes
-    to get the information, take the first match and return the latitude
+    to get the information, take the first match and return the coords. If this
+    fails we search the place database
     '''
 
     q = request.args.get('q', None)
     r = requests.get('http://api.geonames.org/search', params={'q': q, 
-        'username': 'mattyhall', 'type': 'json'})
+        'username': 'mattyhall', 'type': 'json', 'country': 'GB'})
     loc_json = r.json()
-    # each result is in the geonames array. Grab the first and return it
-    return json.dumps(loc_json['geonames'][0])
+    if len(loc_json['geonames']) > 0:
+        # each result is in the geonames array. Grab the first
+        res = loc_json['geonames'][0]
+        # if we got a result add a status so the client knows we succeeded
+        res['status'] = 'ok'
+        return json.dumps(res)
+    else:
+        # if we didn't get a result search the places
+        place = Place.query.filter(Place.name.like(q)).first()
+        if place is None:
+            return json.dumps({'status': 'error'})
+        return json.dumps({'lat': place.lat, 'lng': place.lng, 'status': 'ok'})
 
 @app.route('/place/<id>')
 def place(id):

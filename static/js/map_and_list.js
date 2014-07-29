@@ -69,12 +69,18 @@ function initialise_map() {
 }
 
 function search(map) {
+    $("#errors").html("");
     query = $('#search').val();
     $.getJSON('/placelocation', {q: query}, function(json) {
-        // go to the coordinates given
-        var latlng = new google.maps.LatLng(json.lat, json.lng);
-        map.panTo(latlng);
-        map.setZoom(12);
+        if (json.status == 'ok') {
+            // go to the coordinates given
+            var latlng = new google.maps.LatLng(json.lat, json.lng);
+            map.panTo(latlng);
+            map.setZoom(12);
+        } else {
+            $("#errors").append("<li>Could not find that place. Please enter " +
+                                 "a valid place name or a hospital/clinic");
+        }
     });
 }
 
