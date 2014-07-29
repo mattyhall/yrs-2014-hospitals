@@ -27,4 +27,9 @@ def place_location():
     loc_json = r.json()
     return json.dumps(loc_json['geonames'][0])
 
+@app.route('/place/<id>')
+def place(id):
+    place = Place.query.filter_by(id=id).first()
+    return render_template('place.html', place=place)
+
 app.run(debug=True)
