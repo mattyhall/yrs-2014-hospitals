@@ -1,7 +1,6 @@
 function load_list(places) {
     var list = $('#hospitals-list').html('');
     $.each(places, function(i, place) {
-        console.log(place);
         div = '<div class="hospital-list-item"><a href="/place/' + place.id + 
             '">' + place.name + '</a><br>Average rating: ' + 
             place.rating + '<hr/></div>';
@@ -13,7 +12,7 @@ function load_map(json, map) {
     var markers = [];
     $.each(json, function(i, place) {
         var info = new google.maps.InfoWindow({
-            content: place.name,
+            content: '<a href="/place/' + place.id + '">' + place.name + "</a>",
         });
         var marker = new google.maps.Marker ({
             position: new google.maps.LatLng(place.lat, place.lng),
@@ -56,7 +55,6 @@ function search(map) {
     query = $('#search').val();
     $.getJSON('/placelocation', {q: query}, function(json) {
         var latlng = new google.maps.LatLng(json.lat, json.lng);
-        console.log(json);
         map.panTo(latlng);
         map.setZoom(12);
     });
