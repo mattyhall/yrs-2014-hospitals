@@ -78,8 +78,9 @@ function search(map) {
             map.panTo(latlng);
             map.setZoom(12);
         } else {
-            $("#errors").append("<li>Could not find that place. Please enter " +
-                                 "a valid place name or a hospital/clinic");
+            $("#errors").append('<div class="alert alert-danger">Could not ' +
+                                'find that place. Please enter a valid place' + 
+                                'name or a hospital/clinic');
         }
     });
 }
