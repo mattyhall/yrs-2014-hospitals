@@ -1,7 +1,9 @@
 function load_list(places) {
     var list = $('#hospitals-list').html('');
     $.each(places, function(i, place) {
-        div = '<div class="hospital-list-item"><h6>' + place.name + '</h6><hr/></div>';
+        div = '<div class="hospital-list-item">' + 
+            place.name + '<br>' + 
+            place.rating + '<hr/></div>';
         list.append(div);
     });
 }

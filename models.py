@@ -25,6 +25,16 @@ class Place(db.Model):
         self.lat = lat
         self.lng = lng
 
+    def average_rating(self):
+        rating = Rating.query.filter_by(place=self).first()
+        n = rating.cleanliness + rating.staff_worked_well + \
+            rating.dignity_respect + rating.involved_with_decision
+        if n < 0:
+            return 0
+        n /= 4
+        # TODO: I am a terrible, terrible person
+        return '{:.2f}'.format(n)
+
 class Rating(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     place_id = db.Column(db.Integer, db.ForeignKey('place.id'))

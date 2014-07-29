@@ -1,6 +1,6 @@
 from flask import render_template, request
 import json
-from models import db, app, Place
+from models import db, app, Place, Rating
 import requests
 
 @app.route("/")
@@ -11,8 +11,11 @@ def index():
 def get_places():
     places = Place.query.order_by(Place.name).all();
     places = [{'id': place.id, 'name': place.name, 'tel': place.telephone, 
-               'street': place.street, 'locality': place.locality, 'region': place.region, 
-               'postcode': place.postcode, 'lat': place.lat, 'lng': place.lng} for place in places]
+               'street': place.street, 'locality': place.locality,
+               'region': place.region, 'postcode': place.postcode, 
+               'lat': place.lat, 'lng': place.lng,
+               'rating': place.average_rating()}
+              for place in places]
     places_json = json.dumps(places)
     return places_json
 
