@@ -49,6 +49,12 @@ function initialise_map() {
     $('#search-btn').click(function () {
         search(map);
     });
+
+    $('#search').keypress(function(e) {
+        if (e.which == 13) {
+            search(map);
+        }
+    });
 }
 
 function search(map) {
