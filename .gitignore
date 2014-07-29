@@ -1,5 +1,4 @@
 *.*.swp
 *.*.sv
-*.db
 __pycache__
 *.pyc
