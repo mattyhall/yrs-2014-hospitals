@@ -62,3 +62,11 @@
 .hospital-detail td {
     padding: 10px;
 }
+
+.ratings td {
+    padding: 10px;
+}
+
+.rating {
+    font-weight: bold;
+}

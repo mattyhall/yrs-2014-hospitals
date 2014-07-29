@@ -1,4 +1,18 @@
 {% extends "base.html" %}
+
+{% block head %}
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script type="text/javascript" src="/static/js/bars.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      create_bar("cleanliness", {{ rating.cleanliness }});
+      create_bar("staff", {{ rating.staff_worked_well }});
+      create_bar("respect", {{ rating.dignity_respect }});
+      create_bar("decisions", {{ rating.involved_with_decision }});
+    });
+  </script>
+{% endblock %}
+
 {% block content %}
   <h1>{{ place.name }}</h1>
   <table class="hospital-detail">
@@ -23,5 +37,20 @@
       </td>
     </tr>
     <tr><td>Directions</td><td><a href="https://www.google.com/maps/preview?daddr={{ place.postcode }}">Direct me!</a></tr>
+  </table>
+  <h3>Ratings</h3>
+  <table class="ratings">
+    <tr><td>Cleanliness</td>
+        <td id="cleanliness"></td>
+     </tr>
+    <tr><td>Staff worked well</td>
+        <td id="staff"></td>
+     </tr>
+    <tr><td>Dignity and respect</td>
+        <td id="respect"></td>
+     </tr>
+    <tr><td>Involved with decisions</td>
+        <td id="decisions"></td>
+     </tr>
   </table>
 {% endblock %}

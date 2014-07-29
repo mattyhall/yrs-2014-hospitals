@@ -30,6 +30,7 @@ def place_location():
 @app.route('/place/<id>')
 def place(id):
     place = Place.query.filter_by(id=id).first()
-    return render_template('place.html', place=place)
+    rating = Rating.query.filter_by(place=place).first()
+    return render_template('place.html', place=place, rating=rating)
 
 app.run(debug=True)
