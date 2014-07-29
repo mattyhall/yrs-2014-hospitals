@@ -58,3 +58,7 @@
     overflow:auto;
     min-height: 500px;
 }
+
+.hospital-detail td {
+    padding: 10px;
+}

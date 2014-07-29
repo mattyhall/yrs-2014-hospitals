@@ -1,11 +1,26 @@
 {% extends "base.html" %}
 {% block content %}
-  {{ place.name }}
-  {{ place.telephone }}
-  {{ place.street }}
-  {{ place.locality }}
-  {{ place.region }}
-  {{ place.postcode }}
-
-  {{ place.cleanliness}}
+  <h1>{{ place.name }}</h1>
+  <table class="hospital-detail">
+    {% if place.telephone %}
+      <tr><td>Telephone</td><td>{{ place.telephone}}</td></tr>
+    {% endif %}
+    <tr>
+      <td>Address</td>
+      <td>
+        {% if place.street %}
+          {{ place.street }}<br/>
+        {% endif %}
+        {% if place.locality %}
+          {{ place.locality }}<br/>
+        {% endif %}
+        {% if place.region %}
+          {{ place.region }}<br/>
+        {% endif %}
+        {% if place.postcode %}
+          {{ place.postcode }}<br/>
+        {% endif %}
+      </td>
+    </tr>
+  </table>
 {% endblock %}
