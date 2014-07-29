@@ -1,8 +1,11 @@
-{{ place.name }}
-{{ place.telephone }}
-{{ place.street }}
-{{ place.locality }}
-{{ place.region }}
-{{ place.postcode }}
+{% extends "base.html" %}
+{% block content %}
+  {{ place.name }}
+  {{ place.telephone }}
+  {{ place.street }}
+  {{ place.locality }}
+  {{ place.region }}
+  {{ place.postcode }}
 
-{{ place.cleanliness}}
+  {{ place.cleanliness}}
+{% endblock %}
