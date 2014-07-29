@@ -3,7 +3,7 @@ import models
 import codecs
 def to_float(s):
     if s.strip() == '':
-        return -1
+        return None
     else:
         return float(s)
 
@@ -11,17 +11,23 @@ def load_ratings():
     with open('data/hospital-overall-ratings.csv', 'r') as f:
         reader = csv.DictReader(f)
         for row in reader:
-           row = {unicode(k): unicode(v) for k,v in row.items()}
-           place = models.Place.query.filter_by(name=row['Org Name']).first()
-           if place is not None:
-               print(row['Org Name'], place.name)
-               rating = models.Rating(place, to_float(row['Cleanliness']), 
-                                             to_float(row['Doctors and Nurses Worked well']), 
-                                             to_float(row['Dignity and Respect']), 
-                                             to_float(row['Involved with Decisions']), 
-                                             to_float(row['Recommended']), 
-                                             to_float(row['Not Recommended']))
-               models.db.session.add(rating)
+            # the file is in a weird encoding and sqlalchemy wants unicode,
+            # so convert
+            row = {unicode(k): unicode(v) for k,v in row.items()}
+            place = models.Place.query.filter_by(name=row['Org Name']).first()
+            if place is not None:
+                # if there is a place with the given name create a rating object
+                # for it
+                print(row['Org Name'], place.name)
+                rating = models.Rating(place, to_float(row['Cleanliness']), 
+                        to_float(row['Doctors and Nurses Worked well']),
+                        to_float(row['Dignity and Respect']),
+                        to_float(row['Involved with Decisions']),
+                        to_float(row['Recommended']),
+                        to_float(row['Not Recommended']))
+                models.db.session.add(rating)
+        # save all the objects created. Could do this after each object is
+        # created but this can be slow
         print('Commit')
         models.db.session.commit()
             
