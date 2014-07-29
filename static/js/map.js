@@ -3,7 +3,7 @@ function load_list(places) {
     $.each(places, function(i, place) {
         console.log(place);
         div = '<div class="hospital-list-item"><a href="/place/' + place.id + 
-            '">' + place.name + '</a><br>' + 
+            '">' + place.name + '</a><br>Average rating: ' + 
             place.rating + '<hr/></div>';
         list.append(div);
     });

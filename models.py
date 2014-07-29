@@ -5,6 +5,12 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///hospitals.db'
 db = SQLAlchemy(app)
 
+def counter(n):
+    if n < 0 or n is None:
+        return None
+    else:
+        return n
+
 class Place(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(75), unique=True)
@@ -27,13 +33,27 @@ class Place(db.Model):
 
     def average_rating(self):
         rating = Rating.query.filter_by(place=self).first()
-        n = rating.cleanliness + rating.staff_worked_well + \
-            rating.dignity_respect + rating.involved_with_decision
-        if n < 0:
-            return 0
-        n /= 4
+        sum = 0
+        n = 0
+        if rating.cleanliness > 0:
+            sum += rating.cleanliness
+            n += 1
+        if rating.staff_worked_well > 0:
+            sum += rating.staff_worked_well
+            n += 1
+        if rating.dignity_respect > 0:
+            sum += rating.dignity_respect
+            n += 1
+        if rating.involved_with_decision > 0:
+            sum += rating.involved_with_decision
+            n += 1
+
+        if n <= 0:
+            return 'No rating'
+
+        avg = sum / n
         # TODO: I am a terrible, terrible person
-        return '{:.2f}'.format(n)
+        return '{:.2f}'.format(sum / n)
 
 class Rating(db.Model):
     id = db.Column(db.Integer, primary_key=True)
