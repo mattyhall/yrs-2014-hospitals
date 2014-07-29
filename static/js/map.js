@@ -43,6 +43,20 @@ function initialise_map() {
     var map_options = {center: new google.maps.LatLng(53.420882, -1.208496), zoom: 6};
     var map = new google.maps.Map(document.getElementById('map-canvas'), map_options);
     load_data(map);
+
+    $('#search-btn').click(function () {
+        search(map);
+    });
+}
+
+function search(map) {
+    query = $('#search').val();
+    $.getJSON('/placelocation', {q: query}, function(json) {
+        var latlng = new google.maps.LatLng(json.lat, json.lng);
+        console.log(json);
+        map.panTo(latlng);
+        map.setZoom(12);
+    });
 }
 
 google.maps.event.addDomListener(window, 'load', initialise_map);
