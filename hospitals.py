@@ -1,5 +1,10 @@
+from flask import render_template
 import json
 from models import db, app, Place
+
+@app.route("/")
+def index():
+    return render_template('index.html')
 
 @app.route("/allplaces")
 def allplaces():
