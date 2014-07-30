@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block head %}
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script type="text/javascript" src="/static/js/bars.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        create_barchart();
+    });
+  </script>
+{% endblock %}
+
+{% block content %}
+  <table class="compare-tables">
+    <tr>
+      <th></th>
+      {% for name in rows.names %}
+        <th>{{ name }}</td>
+      {% endfor %}
+    </tr>
+    <tr>
+      <td></td>
+      {% for info in rows.info %}
+        <td>{{ info.tel }} {{ info.street }}</td>
+      {% endfor %}
+    </tr>
+    <tr>
+      <td>Cleanliness</td>
+      {% for place in rows.cleanliness %}
+        {% if place.cleanliness > 0 %}
+          <td class="rating" id="place-{{place.id}}">{{ place.cleanliness }}</td>
+        {% else %}
+          <td></td>
+        {% endif %}
+      {% endfor %}
+    </tr>
+  </table>
+{% endblock %}

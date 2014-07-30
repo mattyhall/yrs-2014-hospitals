@@ -55,6 +55,17 @@ class Place(db.Model):
         # TODO: I am a terrible, terrible person
         return '{:.2f}'.format(sum / n)
 
+    def to_dict(self):
+        # we need to convert each place to json so that javascript can consume it
+        # easily. To do this we must use python's basic types so we will convert
+        # each place into a dictionary. We could probably have done a hack with
+        # __dict__ but readability is more important that number of lines!
+        return {'id': self.id, 'name': self.name, 'tel': self.telephone,
+               'street': self.street, 'locality': self.locality,
+               'region': self.region, 'postcode': self.postcode,
+               'lat': self.lat, 'lng': self.lng,
+               'rating': self.average_rating()}
+
 class Rating(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     place_id = db.Column(db.Integer, db.ForeignKey('place.id'))

@@ -14,16 +14,7 @@ def get_places():
     '''Get all the places we have in the database'''
 
     places = Place.query.order_by(Place.name).all();
-    # we need to convert each place to json so that javascript can consume it
-    # easily. To do this we must use python's basic types so we will convert
-    # each place into a dictionary. We could probably have done a hack with
-    # __dict__ but readability is more important that number of lines!
-    places = [{'id': place.id, 'name': place.name, 'tel': place.telephone, 
-               'street': place.street, 'locality': place.locality,
-               'region': place.region, 'postcode': place.postcode, 
-               'lat': place.lat, 'lng': place.lng,
-               'rating': place.average_rating()}
-              for place in places]
+    places = [place.to_dict() for place in places]
     places_json = json.dumps(places)
     return places_json
 
@@ -60,6 +51,20 @@ def place(id):
     place = Place.query.filter_by(id=id).first()
     rating = Rating.query.filter_by(place=place).first()
     return render_template('place.html', place=place, rating=rating)
+
+@app.route('/compare', methods=['POST'])
+def compare():
+    place_ids = [v for k, v in request.form.items() if k.startswith('place')]
+    places = [Place.query.filter_by(id=id).first() for id in place_ids]
+    rows = {'names': [], 'info': [], 'cleanliness': [], 'staff': []}
+    for place in places:
+        rows['names'].append(place.name)
+        rows['info'].append(place.to_dict())
+        rating = Rating.query.filter_by(place=place).first()
+        rows['cleanliness'].append({'id': place.id,
+            'cleanliness': rating.cleanliness})
+        rows['staff'].append(rating.staff_worked_well)
+    return render_template('compare.html', rows=rows)
 
 if __name__ == '__main__':
     app.run(debug=True)

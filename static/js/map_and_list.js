@@ -5,7 +5,8 @@ function load_list(places) {
     $.each(places, function(i, place) {
         div = '<div class="hospital-list-item"><a href="/place/' + place.id + 
             '">' + place.name + '</a><br>Average rating: ' + 
-            place.rating + '<hr/></div>';
+            place.rating + '<br><input type="checkbox" name="place-' + place.id
+            + '" value="' + place.id + '" class="check-compare"/><hr/></div>';
         list.append(div);
     });
 }
@@ -34,6 +35,9 @@ function load_map(json, map) {
         $.each(markers, function(i, marker) {
             if (map.getBounds().contains(marker.m.getPosition())) {
                 places.push(marker.p);
+            } else {
+                // don't compare places we can't see
+                $("#check-" + marker.p.id).attr("checked", false);
             }
         });
         load_list(places);
@@ -65,6 +69,10 @@ function initialise_map() {
         if (e.which == 13) {
             search(map);
         }
+    });
+
+    $("#compare-link").click(function() {
+        compare();
     });
 }
 
