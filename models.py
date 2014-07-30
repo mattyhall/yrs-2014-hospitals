@@ -22,6 +22,7 @@ class Place(db.Model):
     lat = db.Column(db.Float)
     lng = db.Column(db.Float)
     org_code = db.Column(db.String(20))
+    site_code = db.Column(db.String(20))
 
     def __init__(self, name, tel, st, lo, re, pc, lat, lng):
         self.name = name
