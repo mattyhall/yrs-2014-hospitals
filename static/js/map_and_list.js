@@ -72,9 +72,9 @@ function initialise_map() {
     });
 
     $("#compare-form").submit(function(e) {
-        e.preventDefault();
+        //e.preventDefault();
         $("#errors").html("");
-        if ($("check-compare:checked").length < 2) {
+        if ($(".check-compare:checked").length < 2) {
             add_error("Please select two or more places to compare");
             return false;
         }
