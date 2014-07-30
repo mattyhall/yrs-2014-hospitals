@@ -71,6 +71,10 @@ body {
     padding: 10px;
 }
 
+.rating {
+    display: inline;
+}
+
 .ratings-table {
     font-weight: bold;
 }
