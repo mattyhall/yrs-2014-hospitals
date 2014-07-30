@@ -110,3 +110,19 @@ class Service(db.Model):
         self.name = name
         self.value = value
         self.place_services = place_services
+
+class PatientSafety(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    place_id = db.Column(db.Integer, db.ForeignKey('place.id'))
+    place = db.relationship(Place, uselist=False)
+    infection_control = db.Column(db.Integer)
+    blood_clots = db.Column(db.Integer)
+    recommended_by_staff = db.Column(db.Integer)
+    safe_staffing = db.Column(db.Integer)
+
+    def __init__(self, place, infection, clots, rec, staff):
+        self.place = place
+        self.infection_control = infection
+        self.blood_clots = clots
+        self.recommended_by_staff = rec
+        self.safe_staffing = staff
