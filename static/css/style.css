@@ -72,13 +72,12 @@ body {
 }
 
 .rating {
-    display: inline;
 }
 
 .ratings-table {
     font-weight: bold;
 }
 
-.compare-table td {
+.compare-table th, td {
     padding: 10px;
 }

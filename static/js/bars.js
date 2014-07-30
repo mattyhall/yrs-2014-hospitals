@@ -1,11 +1,11 @@
-// the width of a bar on the individual page
-w = 100;
-// the height of a bar on the individual page
-h = 20;
-// the multiplier to go from a rating to a width
-mult = 20;
 
 function create_bar(element_id, rating) {
+    // the width of a bar on the individual page
+    w = 100;
+    // the height of a bar on the individual page
+    h = 20;
+    // the multiplier to go from a rating to a width
+    mult = 20;
     // let's make sure that all ratings are positive. Should be ensured by the
     // importer but better safe that sorry!
     if (rating > 0) {
@@ -38,25 +38,29 @@ function create_bar(element_id, rating) {
 }
 
 function create_barchart() {
+    // the width of a bar on the individual page
+    w = 50;
+    // the height of a bar on the individual page
+    h = 100;
+    // the multiplier to go from a rating to a width
+    mult = 20;
     var elems = $(".rating");
-    var height = w;
-    var width = h;
     $.each(elems, function(i, elem) {
         var rating = $(elem).text();
         $(elem).text("");
         var svg = d3.select("#" + $(elem).attr("id"))
                     .append("svg")
-                    .attr("width", width)
-                    .attr("height", height);
+                    .attr("width", w)
+                    .attr("height", h);
         svg.append("rect")
            .attr("x", 0)
-           .attr("y", height - rating * mult)
-           .attr("width", width)
+           .attr("y", h - rating * mult)
+           .attr("width", w)
            .attr("height", rating * mult)
            .attr("fill", "green");
         svg.append("text")
            .text(function() {return rating})
-           .attr("y", height - 10)
+           .attr("y", h - 10)
            .attr("x", 1)
            .attr("fill", "white");
     });
