@@ -96,3 +96,15 @@ body {
 .container {
     margin-top: 10px;
 }
+
+.safety-1 {
+    color: red;
+}
+
+.safety-2 {
+    color: #CC9900;
+}
+
+.safety-3 {
+    color: green;
+}

@@ -59,13 +59,13 @@
     <h3>Patient safety</h3>
     <table>
       <tr><td>Infection control</td>
-        <td>{{ safety.infection_control | integer_to_rating }}</td>
+        <td class="safety-{{ safety.infection_control }}">{{ safety.infection_control | integer_to_rating }}</td>
       </tr>
       <tr><td>Checking for blood clots</td>
-        <td>{{ safety.blood_clots | integer_to_rating }}</td>
+        <td class="safety-{{ safety.blood_clots }}">{{ safety.blood_clots | integer_to_rating }}</td>
       </tr>
       <tr><td>Staff rating</td>
-        <td>{{ safety.recommended_by_staff | integer_to_rating }}</td>
+        <td class="safety-{{ safety.recommended_by_staff }}">{{ safety.recommended_by_staff | integer_to_rating }}</td>
       </tr>
       <tr><td>Percentage of safe staffing rate</td>
         <td>{{ safety.safe_staffing }}%</td>
