@@ -1,7 +1,18 @@
 from flask import render_template, request
 import json
-from models import db, app, Place, Rating, PlaceServices
+from models import db, app, Place, Rating, PlaceServices, PatientSafety
 import requests
+
+@app.template_filter()
+def integer_to_rating(i):
+    if i == '1':
+        return 'Bad'
+    elif i == '2':
+        return 'Medium'
+    elif i == '3':
+        return 'Good'
+    return 'No data available'
+
 
 @app.route("/")
 def index():
@@ -61,8 +72,9 @@ def place(id):
     place = Place.query.filter_by(id=id).first()
     rating = Rating.query.filter_by(place=place).first()
     services = PlaceServices.query.filter_by(place=place).first()
+    safety = PatientSafety.query.filter_by(place=place).first()
     return render_template('place.html', place=place, rating=rating,
-        services=services)
+        services=services, safety=safety)
 
 @app.route('/compare', methods=['POST'])
 def compare():

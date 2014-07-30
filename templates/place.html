@@ -43,18 +43,35 @@
   <h3>Average Ratings</h3>
   <table class="ratings-table">
     <tr><td>Cleanliness</td>
-        <td id="cleanliness"></td>
-     </tr>
+      <td id="cleanliness"></td>
+    </tr>
     <tr><td>Staff worked well</td>
-        <td id="staff"></td>
-     </tr>
+      <td id="staff"></td>
+    </tr>
     <tr><td>Dignity and respect</td>
-        <td id="respect"></td>
-     </tr>
+      <td id="respect"></td>
+    </tr>
     <tr><td>Involved with decisions</td>
-        <td id="decisions"></td>
-     </tr>
+      <td id="decisions"></td>
+    </tr>
   </table>
+  {% if safety %}
+    <h3>Patient safety</h3>
+    <table>
+      <tr><td>Infection control</td>
+        <td>{{ safety.infection_control | integer_to_rating }}</td>
+      </tr>
+      <tr><td>Checking for blood clots</td>
+        <td>{{ safety.blood_clots | integer_to_rating }}</td>
+      </tr>
+      <tr><td>Staff rating</td>
+        <td>{{ safety.recommended_by_staff | integer_to_rating }}</td>
+      </tr>
+      <tr><td>Percentage of safe staffing rate</td>
+        <td>{{ safety.safe_staffing }}%</td>
+      </tr>
+  </table>
+  {% endif %}
   <h3>Services</h3>
   <ul>
     {% for service in services.services %}
