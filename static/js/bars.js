@@ -36,7 +36,7 @@ function create_bar(element_id, rating) {
     }
 }
 
-function create_barchart_horiz() {
+function create_barchart_horiz(w, h, mult, med, good) {
     // the width of a bar
     w = 100;
     // the height of a bar
@@ -51,6 +51,12 @@ function create_barchart_horiz() {
             $(elem).text("No rating");
             return;
         }
+        var colour = "green";
+        if (rating < med) {
+            colour = "red";
+        } else if (rating < good) {
+            colour = "#CC9900";
+        }
         var svg = d3.select("#" + $(elem).attr("id"))
                     .append("svg")
                     .attr("width", w)
@@ -60,7 +66,7 @@ function create_barchart_horiz() {
            .attr("y", 0)
            .attr("width", rating * mult)
            .attr("height", h)
-           .attr("fill", "green");
+           .attr("fill", colour);
         svg.append("text")
            .text(function() {return rating})
            .attr("y", 15)
