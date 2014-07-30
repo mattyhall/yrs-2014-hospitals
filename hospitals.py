@@ -83,7 +83,8 @@ def compare():
     place_ids = [v for k, v in request.form.items() if k.startswith('place')]
     places = [Place.query.filter_by(id=id).first() for id in place_ids]
     headers = ['Cleanliness', 'Staff worked well', 'Dignity and respect',
-        'Involved with decisions', 'Number of services']
+        'Involved with decisions', 'Number of services', 'Infection control',
+        'Checking for blood clots', 'Staff rating', 'Safe staffing %']
     # each row is for a hospital
     rows = []
     for place in places:
@@ -95,6 +96,8 @@ def compare():
         row['staff']= rating.staff_worked_well
         row['dignity'] = rating.dignity_respect
         row['involved'] = rating.involved_with_decision
+        safety = PatientSafety.query.filter_by(place=place).first()
+        row['safety'] = safety
         place_services = PlaceServices.query.filter_by(place=place).first()
         if place_services is None:
             row['number_of_services'] = None

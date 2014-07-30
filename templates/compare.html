@@ -35,6 +35,32 @@
               No data
             {% endif %}
           </td>
+          {% if place.safety.infection_control %}
+            <td class="safety-{{ place.safety.infection_control }}">
+              {{ place.safety.infection_control | integer_to_rating }}</td>
+          {% else %}
+            <td>No data available</td>
+          {% endif %}
+
+          {% if place.safety.blood_clots %}
+            <td class="safety-{{ place.safety.blood_clots }}">
+              {{ place.safety.blood_clots | integer_to_rating }}</td>
+          {% else %}
+            <td>No data available</td>
+          {% endif %}
+
+          {% if place.safety.recommended_by_staff %}
+            <td class="safety-{{ place.safety.recommended_by_staff }}">
+              {{ place.safety.recommended_by_staff | integer_to_rating }}</td>
+          {% else %}
+            <td>No data available</td>
+          {% endif %}
+
+          {% if place.safety.safe_staffing %}
+            <td>{{ place.safety.safe_staffing }}%</td>
+          {% else %}
+            <td>No data available</td>
+          {% endif %}
         </tr>
       {% endfor %}
     </tr>
