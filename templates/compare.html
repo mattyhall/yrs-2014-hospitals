@@ -21,7 +21,14 @@
     <tr>
       <td></td>
       {% for info in rows.info %}
-        <td>{{ info.tel }} {{ info.street }}</td>
+        <td>
+          {% if info.tel %}
+            {{ info.tel }}<br/>
+          {% endif %}
+          {% if info.street %}
+            {{ info.street }}<br/>
+          {% endif %}
+        </td>
       {% endfor %}
     </tr>
     <tr>
@@ -49,6 +56,16 @@
       {% for place in rows.dignity %}
         {% if place.dignity > 0 %}
           <td class="rating" id="d-place-{{place.id}}">{{ place.dignity }}</td>
+        {% else %}
+          <td></td>
+        {% endif %}
+      {% endfor %}
+    </tr>
+    <tr>
+      <td>Involved with decisions</td>
+      {% for place in rows.involved %}
+        {% if place.involved > 0 %}
+          <td class="rating" id="i-place-{{place.id}}">{{ place.involved }}</td>
         {% else %}
           <td></td>
         {% endif %}
