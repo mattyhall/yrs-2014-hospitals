@@ -1,6 +1,6 @@
 from flask import render_template, request
 import json
-from models import db, app, Place, Rating
+from models import db, app, Place, Rating, PlaceServices
 import requests
 
 @app.route("/")
@@ -50,7 +50,9 @@ def place(id):
     # through javascript would be a bit more difficult
     place = Place.query.filter_by(id=id).first()
     rating = Rating.query.filter_by(place=place).first()
-    return render_template('place.html', place=place, rating=rating)
+    services = PlaceServices.query.filter_by(place=place).first()
+    return render_template('place.html', place=place, rating=rating,
+        services=services)
 
 @app.route('/compare', methods=['POST'])
 def compare():

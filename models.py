@@ -95,7 +95,7 @@ class PlaceServices(db.Model):
     place_id = db.Column(db.Integer, db.ForeignKey('place.id'))
     place = db.relationship(Place, uselist=False)
     services = db.relationship('Service', backref='place_services', lazy='dynamic')
-    
+
     def __init__(self, place):
         self.place = place
 

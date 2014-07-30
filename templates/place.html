@@ -55,4 +55,12 @@
         <td id="decisions"></td>
      </tr>
   </table>
+  <h3>Services</h3>
+  <ul>
+    {% for service in services.services %}
+      {% if service.value %}
+        <li>{{ service.name }}</li>
+      {% endif %}
+    {% endfor %}
+  </ul>
 {% endblock %}
