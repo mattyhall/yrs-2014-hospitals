@@ -87,3 +87,25 @@ class Rating(db.Model):
         self.recommend = rec
         self.not_recommend = not_rec
 
+
+class PlaceServices(db.Model):
+    __tablename__ = 'place_services'
+
+    id = db.Column(db.Integer, primary_key=True)
+    place_id = db.Column(db.Integer, db.ForeignKey('place.id'))
+    place = db.relationship(Place, uselist=False)
+    services = db.relationship('Service', backref='place_services', lazy='dynamic')
+    
+    def __init__(self, place):
+        self.place = place
+
+class Service(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(250))
+    value = db.Column(db.Boolean(), default=False)
+    place_services_id = db.Column(db.Integer, db.ForeignKey('place_services.id'))
+
+    def __init__(self, name, value, place_services):
+        self.name = name
+        self.value = value
+        self.place_services = place_services
