@@ -5,7 +5,7 @@
   <script type="text/javascript" src="/static/js/bars.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
-        create_barchart();
+        create_barchart_horiz();
     });
   </script>
 {% endblock %}
@@ -16,62 +16,19 @@
 {% block content %}
   <table class="compare-table">
     <tr>
-      <th></th>
-      {% for name in rows.names %}
-        <th>{{ name }}</td>
+      <th>Hospital</th>
+      {% for header in headers %}
+        <th>{{ header }}</th>
       {% endfor %}
-    </tr>
-    <tr>
-      <td></td>
-      {% for info in rows.info %}
-        <td>
-          {% if info.tel %}
-            {{ info.tel }}<br/>
-          {% endif %}
-          {% if info.street %}
-            {{ info.street }}<br/>
-          {% endif %}
-        </td>
-      {% endfor %}
-    </tr>
-    <tr>
-      <td>Cleanliness</td>
-      {% for place in rows.cleanliness %}
-        {% if place.cleanliness > 0 %}
-          <td class="rating" id="c-place-{{place.id}}">{{ place.cleanliness }}</td>
-        {% else %}
-          <td></td>
-        {% endif %}
-      {% endfor %}
-    </tr>
-    <tr>
-      <td>Staff worked well</td>
-      {% for place in rows.staff %}
-        {% if place.staff > 0 %}
-          <td class="rating" id="s-place-{{place.id}}">{{ place.staff }}</td>
-        {% else %}
-          <td></td>
-        {% endif %}
-      {% endfor %}
-    </tr>
-    <tr>
-      <td>Dignity and respect</td>
-      {% for place in rows.dignity %}
-        {% if place.dignity > 0 %}
-          <td class="rating" id="d-place-{{place.id}}">{{ place.dignity }}</td>
-        {% else %}
-          <td></td>
-        {% endif %}
-      {% endfor %}
-    </tr>
-    <tr>
-      <td>Involved with decisions</td>
-      {% for place in rows.involved %}
-        {% if place.involved > 0 %}
-          <td class="rating" id="i-place-{{place.id}}">{{ place.involved }}</td>
-        {% else %}
-          <td></td>
-        {% endif %}
+
+      {% for place in rows %}
+        <tr>
+          <td>{{ place.name }}</td>
+          <td class="rating" id="c-rat-{{place.id}}">{{ place.cleanliness }}</td>
+          <td class="rating" id="s-rat-{{place.id}}">{{ place.staff }}</td>
+          <td class="rating" id="d-rat-{{place.id}}">{{ place.dignity }}</td>
+          <td class="rating" id="i-rat-{{place.id}}">{{ place.involved }}</td>
+        </tr>
       {% endfor %}
     </tr>
   </table>

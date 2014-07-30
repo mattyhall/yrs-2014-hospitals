@@ -58,21 +58,19 @@ def place(id):
 def compare():
     place_ids = [v for k, v in request.form.items() if k.startswith('place')]
     places = [Place.query.filter_by(id=id).first() for id in place_ids]
-    rows = {'names': [], 'info': [], 'cleanliness': [], 'staff': [],
-        'dignity': [], 'involved': []}
+    headers = ['Cleanliness', 'Staff worked well', 'Dignity and respect', 'Involved with decisions']
+    rows = []
     for place in places:
-        rows['names'].append(place.name)
-        rows['info'].append(place.to_dict())
+        row = {}
+        row['name'] = place.name
+        row['id'] = place.id
         rating = Rating.query.filter_by(place=place).first()
-        rows['cleanliness'].append({'id': place.id,
-            'cleanliness': rating.cleanliness})
-        rows['staff'].append({'id': place.id,
-            'staff': rating.staff_worked_well})
-        rows['dignity'].append({'id': place.id,
-            'dignity': rating.dignity_respect})
-        rows['involved'].append({'id': place.id,
-            'involved': rating.involved_with_decision})
-    return render_template('compare.html', rows=rows)
+        row['cleanliness'] = rating.cleanliness
+        row['staff']= rating.staff_worked_well
+        row['dignity'] = rating.dignity_respect
+        row['involved'] = rating.involved_with_decision
+        rows.append(row)
+    return render_template('compare.html', rows=rows, headers=headers)
 
 if __name__ == '__main__':
     app.run(debug=True)

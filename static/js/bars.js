@@ -65,3 +65,32 @@ function create_barchart() {
            .attr("fill", "white");
     });
 }
+
+function create_barchart_horiz() {
+    // the width of a bar on the individual page
+    w = 100;
+    // the height of a bar on the individual page
+    h = 20;
+    // the multiplier to go from a rating to a width
+    mult = 20;
+    var elems = $(".rating");
+    $.each(elems, function(i, elem) {
+        var rating = $(elem).text();
+        $(elem).text("");
+        var svg = d3.select("#" + $(elem).attr("id"))
+                    .append("svg")
+                    .attr("width", w)
+                    .attr("height", h);
+        svg.append("rect")
+           .attr("x", 0)
+           .attr("y", 0)
+           .attr("width", rating * mult)
+           .attr("height", h)
+           .attr("fill", "green");
+        svg.append("text")
+           .text(function() {return rating})
+           .attr("y", 15)
+           .attr("x", 1)
+           .attr("fill", "white");
+    });
+}
