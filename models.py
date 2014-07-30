@@ -5,12 +5,6 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///hospitals.db'
 db = SQLAlchemy(app)
 
-def counter(n):
-    if n < 0 or n is None:
-        return None
-    else:
-        return n
-
 class Place(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(75), unique=True)
@@ -95,7 +89,10 @@ class PlaceServices(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     place_id = db.Column(db.Integer, db.ForeignKey('place.id'))
     place = db.relationship(Place, uselist=False)
-    services = db.relationship('Service', backref='place_services', lazy='dynamic')
+    # backref creates a field on Service called place_services that points back
+    # here
+    services = db.relationship('Service', backref='place_services',
+        lazy='dynamic')
 
     def __init__(self, place):
         self.place = place
@@ -104,7 +101,8 @@ class Service(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(250))
     value = db.Column(db.Boolean(), default=False)
-    place_services_id = db.Column(db.Integer, db.ForeignKey('place_services.id'))
+    place_services_id = db.Column(db.Integer,
+        db.ForeignKey('place_services.id'))
 
     def __init__(self, name, value, place_services):
         self.name = name

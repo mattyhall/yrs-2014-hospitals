@@ -5,6 +5,7 @@ import requests
 
 @app.template_filter()
 def integer_to_rating(i):
+    '''Filter that turns a rating number (1,2,3) to a string'''
     if i == 1:
         return 'Bad'
     elif i == 2:
@@ -78,6 +79,7 @@ def place(id):
 
 @app.route('/compare', methods=['POST'])
 def compare():
+    '''Compare a number of places'''
     # every checkbox has an id/name that starts with "place". The value is the
     # id of the place we want
     place_ids = [v for k, v in request.form.items() if k.startswith('place')]
@@ -102,8 +104,11 @@ def compare():
         if place_services is None:
             row['number_of_services'] = None
         else:
-            row['number_of_services'] = len([service for service in place_services.services
-                                             if service.value])
+            # we need to make sure this service is offered, so only count it if
+            # the value is true
+            row['number_of_services'] = len(
+                [service for service in place_services.services
+                         if service.value])
         rows.append(row)
     return render_template('compare.html', rows=rows, headers=headers)
 

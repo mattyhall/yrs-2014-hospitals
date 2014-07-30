@@ -36,13 +36,9 @@ function create_bar(element_id, rating) {
     }
 }
 
+// bar width, height, multiplier to go from rating to bar width, medium
+// threshold, good threshold
 function create_barchart_horiz(w, h, mult, med, good) {
-    // the width of a bar
-    w = 100;
-    // the height of a bar
-    h = 20;
-    // the multiplier to go from a rating to a width
-    mult = 20;
     var elems = $(".rating");
     $.each(elems, function(i, elem) {
         var rating = $(elem).text();

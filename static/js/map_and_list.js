@@ -71,17 +71,21 @@ function initialise_map() {
         }
     });
 
+    // we intercept the form submit to do some error checking
     $("#compare-form").submit(function(e) {
         //e.preventDefault();
         $("#errors").html("");
         if ($(".check-compare:checked").length < 2) {
             add_error("Please select two or more places to compare");
+            // don't submit
             return false;
         }
+        // do submit
         return true;
     });
 }
 
+// create an error alert
 function add_error(msg) {
     $("#errors").append('<div class="alert alert-danger">' + msg + '</div>');
 }
