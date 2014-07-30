@@ -56,11 +56,11 @@ body {
 }
 
 #hospitals-list {
-    max-height:500px;
+    max-height:460px;
     border:1px solid #ccc;
     font:16px/26px Georgia, Garamond, Serif;
     overflow:auto;
-    min-height: 500px;
+    min-height: 460px;
 }
 
 .hospital-detail td {
@@ -80,4 +80,8 @@ body {
 
 .compare-table th, td {
     padding: 10px;
+}
+
+.submitbutton {
+    width: 264px;
 }
