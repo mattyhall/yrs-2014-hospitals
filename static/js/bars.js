@@ -1,4 +1,3 @@
-
 function create_bar(element_id, rating) {
     // the width of a bar on the individual page
     w = 100;
@@ -37,39 +36,10 @@ function create_bar(element_id, rating) {
     }
 }
 
-function create_barchart() {
-    // the width of a bar on the individual page
-    w = 50;
-    // the height of a bar on the individual page
-    h = 100;
-    // the multiplier to go from a rating to a width
-    mult = 20;
-    var elems = $(".rating");
-    $.each(elems, function(i, elem) {
-        var rating = $(elem).text();
-        $(elem).text("");
-        var svg = d3.select("#" + $(elem).attr("id"))
-                    .append("svg")
-                    .attr("width", w)
-                    .attr("height", h);
-        svg.append("rect")
-           .attr("x", 0)
-           .attr("y", h - rating * mult)
-           .attr("width", w)
-           .attr("height", rating * mult)
-           .attr("fill", "green");
-        svg.append("text")
-           .text(function() {return rating})
-           .attr("y", h - 10)
-           .attr("x", 1)
-           .attr("fill", "white");
-    });
-}
-
 function create_barchart_horiz() {
-    // the width of a bar on the individual page
+    // the width of a bar
     w = 100;
-    // the height of a bar on the individual page
+    // the height of a bar
     h = 20;
     // the multiplier to go from a rating to a width
     mult = 20;
@@ -77,6 +47,9 @@ function create_barchart_horiz() {
     $.each(elems, function(i, elem) {
         var rating = $(elem).text();
         $(elem).text("");
+        if (rating < 0) {
+            $(elem).text("No rating");
+        }
         var svg = d3.select("#" + $(elem).attr("id"))
                     .append("svg")
                     .attr("width", w)
