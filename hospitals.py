@@ -36,12 +36,22 @@ def place_location():
         # if we got a result add a status so the client knows we succeeded
         res['status'] = 'ok'
         return json.dumps(res)
-    else:
-        # if we didn't get a result search the places
-        place = Place.query.filter(Place.name.like(q)).first()
-        if place is None:
-            return json.dumps({'status': 'error'})
+
+    # if we didn't get a result search the places
+    place = Place.query.filter(Place.name.like(q)).first()
+    if place is not None:
         return json.dumps({'lat': place.lat, 'lng': place.lng, 'status': 'ok'})
+
+    # if we didn't get a place result search postcodes
+    r = requests.get('http://uk-postcodes.com/postcode/search', params={
+        'format': 'json', 'q': q})
+    j = r.json()
+    if not 'error' in j:
+        # add a status so the client knows we succeeded
+        j['geo']['status'] = 'ok'
+        return json.dumps(j['geo'])
+
+    return json.dumps({'status': 'error'})
 
 @app.route('/place/<id>')
 def place(id):
@@ -56,9 +66,13 @@ def place(id):
 
 @app.route('/compare', methods=['POST'])
 def compare():
+    # every checkbox has an id/name that starts with "place". The value is the
+    # id of the place we want
     place_ids = [v for k, v in request.form.items() if k.startswith('place')]
     places = [Place.query.filter_by(id=id).first() for id in place_ids]
-    headers = ['Cleanliness', 'Staff worked well', 'Dignity and respect', 'Involved with decisions']
+    headers = ['Cleanliness', 'Staff worked well', 'Dignity and respect',
+        'Involved with decisions']
+    # each row is for a hospital
     rows = []
     for place in places:
         row = {}
