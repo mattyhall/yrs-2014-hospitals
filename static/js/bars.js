@@ -49,6 +49,7 @@ function create_barchart_horiz() {
         $(elem).text("");
         if (rating < 0) {
             $(elem).text("No rating");
+            return;
         }
         var svg = d3.select("#" + $(elem).attr("id"))
                     .append("svg")
