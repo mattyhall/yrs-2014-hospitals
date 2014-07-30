@@ -87,7 +87,8 @@ def compare():
         if place_services is None:
             row['number_of_services'] = None
         else:
-            row['number_of_services'] = len(place_services.services.all())
+            row['number_of_services'] = len([service for service in place_services.services
+                                             if service.value])
         rows.append(row)
     return render_template('compare.html', rows=rows, headers=headers)
 
