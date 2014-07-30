@@ -28,7 +28,27 @@
       <td>Cleanliness</td>
       {% for place in rows.cleanliness %}
         {% if place.cleanliness > 0 %}
-          <td class="rating" id="place-{{place.id}}">{{ place.cleanliness }}</td>
+          <td class="rating" id="c-place-{{place.id}}">{{ place.cleanliness }}</td>
+        {% else %}
+          <td></td>
+        {% endif %}
+      {% endfor %}
+    </tr>
+    <tr>
+      <td>Staff worked well</td>
+      {% for place in rows.staff %}
+        {% if place.staff > 0 %}
+          <td class="rating" id="s-place-{{place.id}}">{{ place.staff }}</td>
+        {% else %}
+          <td></td>
+        {% endif %}
+      {% endfor %}
+    </tr>
+    <tr>
+      <td>Dignity and respect</td>
+      {% for place in rows.dignity %}
+        {% if place.dignity > 0 %}
+          <td class="rating" id="d-place-{{place.id}}">{{ place.dignity }}</td>
         {% else %}
           <td></td>
         {% endif %}

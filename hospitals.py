@@ -56,14 +56,18 @@ def place(id):
 def compare():
     place_ids = [v for k, v in request.form.items() if k.startswith('place')]
     places = [Place.query.filter_by(id=id).first() for id in place_ids]
-    rows = {'names': [], 'info': [], 'cleanliness': [], 'staff': []}
+    rows = {'names': [], 'info': [], 'cleanliness': [], 'staff': [],
+        'dignity': []}
     for place in places:
         rows['names'].append(place.name)
         rows['info'].append(place.to_dict())
         rating = Rating.query.filter_by(place=place).first()
         rows['cleanliness'].append({'id': place.id,
             'cleanliness': rating.cleanliness})
-        rows['staff'].append(rating.staff_worked_well)
+        rows['staff'].append({'id': place.id,
+            'staff': rating.staff_worked_well})
+        rows['dignity'].append({'id': place.id,
+            'dignity': rating.dignity_respect})
     return render_template('compare.html', rows=rows)
 
 if __name__ == '__main__':
