@@ -28,6 +28,13 @@
           <td class="rating" id="s-rat-{{place.id}}">{{ place.staff }}</td>
           <td class="rating" id="d-rat-{{place.id}}">{{ place.dignity }}</td>
           <td class="rating" id="i-rat-{{place.id}}">{{ place.involved }}</td>
+          <td>
+            {% if place.number_of_services %}
+              {{ place.number_of_services }}
+            {% else %}
+              No data
+            {% endif %}
+          </td>
         </tr>
       {% endfor %}
     </tr>
