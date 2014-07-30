@@ -32,7 +32,7 @@ def load_place(row):
 def load_places():
     reader = csv.DictReader(open('data/places.csv'))
     # thread pool so we can get the data concurrently
-    with concurrent.futures.ThreadPoolExecutor(max_workers=25) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=50) as executor:
         futures = [executor.submit(load_place, row) for row in reader]
         for future in futures:
             try:

@@ -11,6 +11,6 @@ places.load_places()
 
 ratings.load_ratings()
 
-patient_safety.load_patient_safety(
+patient_safety.load_patient_safety()
 
 cqc.load_cqc()

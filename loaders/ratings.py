@@ -26,6 +26,9 @@ def load_ratings():
                         to_float(row['Recommended']),
                         to_float(row['Not Recommended']))
                 models.db.session.add(rating)
+                # also grab the org and site code and add them to the place
+                place.org_code = row['Trust code']
+                place.site_code = row['Org Code']
         # save all the objects created. Could do this after each object is
         # created but this can be slow
         print('Commit')
