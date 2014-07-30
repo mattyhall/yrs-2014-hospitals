@@ -71,9 +71,19 @@ function initialise_map() {
         }
     });
 
-    $("#compare-link").click(function() {
-        compare();
+    $("#compare-form").submit(function(e) {
+        e.preventDefault();
+        $("#errors").html("");
+        if ($("check-compare:checked").length < 2) {
+            add_error("Please select two or more places to compare");
+            return false;
+        }
+        return true;
     });
+}
+
+function add_error(msg) {
+    $("#errors").append('<div class="alert alert-danger">' + msg + '</div>');
 }
 
 function search(map) {
@@ -86,9 +96,8 @@ function search(map) {
             map.panTo(latlng);
             map.setZoom(12);
         } else {
-            $("#errors").append('<div class="alert alert-danger">Could not ' +
-                                'find that place. Please enter a valid place' + 
-                                'name or a hospital/clinic');
+            add_error('Could not find that place. Please enter a valid place' +
+                        'name, postcode or a hospital/clinic');
         }
     });
 }
