@@ -59,6 +59,15 @@ function initialise_map() {
     // add the data to the map and to the list
     load_data(map);
 
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            alert('Got location');
+            var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            map.panTo(latlng);
+            map.setZoom(12);
+        });
+    }
+
     // if the search button is clicked or the enter key is pressed in the
     // search box, search for the place name in the search box
     $('#search-btn').click(function () {
