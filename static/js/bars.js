@@ -38,7 +38,7 @@ function create_bar(element_id, rating) {
 
 // bar width, height, multiplier to go from rating to bar width, medium
 // threshold, good threshold
-function create_barchart_horiz(w, h, mult, med, good) {
+function create_barchart_horiz(w, h, mult, colour_func) {
     var elems = $(".rating");
     $.each(elems, function(i, elem) {
         var rating = $(elem).text();
@@ -47,12 +47,7 @@ function create_barchart_horiz(w, h, mult, med, good) {
             $(elem).text("No rating");
             return;
         }
-        var colour = "green";
-        if (rating < med) {
-            colour = "red";
-        } else if (rating < good) {
-            colour = "#CC9900";
-        }
+        var colour = colour_func(rating)
         var svg = d3.select("#" + $(elem).attr("id"))
                     .append("svg")
                     .attr("width", w)
