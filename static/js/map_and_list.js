@@ -93,17 +93,21 @@ function add_error(msg) {
 function search(map) {
     $("#errors").html("");
     query = $('#search').val();
-    $.getJSON('/placelocation', {q: query}, function(json) {
-        if (json.status == 'ok') {
-            // go to the coordinates given
-            var latlng = new google.maps.LatLng(json.lat, json.lng);
-            map.panTo(latlng);
-            map.setZoom(12);
-        } else {
-            add_error('Could not find that place. Please enter a valid place' +
-                        'name, postcode or a hospital/clinic');
-        }
-    });
+    if (query != '') {
+        $.getJSON('/placelocation', {q: query}, function(json) {
+            if (json.status == 'ok') {
+                // go to the coordinates given
+                var latlng = new google.maps.LatLng(json.lat, json.lng);
+                map.panTo(latlng);
+                map.setZoom(12);
+            } else {
+                add_error('Could not find that place. Please enter a valid place' +
+                            'name, postcode or a hospital/clinic');
+            }
+        });
+    } else {
+        add_error("Please enter a search term");
+    }
 }
 
 google.maps.event.addDomListener(window, 'load', initialise_map);
