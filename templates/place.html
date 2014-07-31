@@ -78,8 +78,12 @@
     <h3>Average times</h3>
     <table>
       <tr><td>Time waiting for services</td>
-        <td>{{ waiting_times.service_waiting_time_weeks | round }}
-             weeks</td>
+        <td>{% if waiting_times.service_waiting_time_weeks %}
+              {{ waiting_times.service_waiting_time_weeks | round }}
+               weeks
+            {% else %}
+               No data available
+            {% endif %}</td>
       </tr>
       <tr><td>Time taken to be assessed in an emergency</td>
         <td>{% if waiting_times.emergency_assesment_time != None %}

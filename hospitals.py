@@ -6,6 +6,8 @@ import requests
 
 @app.template_filter()
 def round(i):
+    if i is None:
+        return None
     # XXX: I am a terrible, terrible person
     return '{:.2f}'.format(i)
 
