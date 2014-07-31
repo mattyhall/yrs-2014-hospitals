@@ -82,13 +82,25 @@
              weeks</td>
       </tr>
       <tr><td>Time taken to be assessed in an emergency</td>
-        <td>{{ waiting_times.emergency_assesment_time_time }} minutes</td>
+        <td>{% if waiting_times.emergency_assesment_time_time %}
+              {{ waiting_times.emergency_assesment_time_time }} minutes
+            {% else %}
+              No data available
+            {% endif %}</td>
       </tr>
       <tr><td>Time taken to be treated</td>
-        <td>{{ waiting_times.time_to_treatment_minutes }} minutes</td>
+        <td>{% if waiting_times.time_to_treatment_minutes %}
+              {{ waiting_times.time_to_treatment_minutes }} minutes
+            {% else %}
+              No data available
+            {% endif %}</td>
       </tr>
       <tr><td>Total time in A+E</td>
-        <td>{{ waiting_times.total_time_in_ae }} minutes</td>
+        <td>{% if waiting_times.total_time_in_ae %}
+              {{ waiting_times.total_time_in_ae }} minutes
+            {% else %}
+              No data available
+            {% endif %}</td>
       </tr>
     </table>
   {% endif %}
