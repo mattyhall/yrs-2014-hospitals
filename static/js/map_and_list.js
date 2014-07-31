@@ -1,28 +1,30 @@
 function load_list(places) {
-    console.log(places);
     // remove all data from the list. This is incase some of the places listed
     // don't need to be included anymore
     var list = $('#hospitals-list').html('');
-    $.each(places, function(i, place) {
+    $.each(places, function(i, place_obj) {
+        var place = place_obj.p
         div = '<div class="hospital-list-item"><a href="/place/' + place.id + 
             '">' + place.name + '</a><br>Average rating: ' + 
             place.rating + '<input type="checkbox" name="place-' + place.id
-            + '" value="' + place.id + '" class="check-compare pull-right"/></div>';
+            + '" id="check-"' + place.id + '" value="' + place.id 
+            + '" class="check-compare pull-right"/></div>';
+        $("#check-" + place.id).prop("checked", place_obj.c);
         list.append(div);
     });
 }
 
 function bounds_changed(map, markers) {
-    console.log(markers);
     // find all the visible markers and include only them on the list
     places = [];
     $.each(markers, function(i, marker) {
-        console.log(marker);
         if (map.getBounds().contains(marker.m.getPosition())) {
-            places.push(marker.p);
+            var checked = $("#check-" + marker.p.id).is("checked")
+            console.log(checked);
+            places.push({p: marker.p, c: checked});
         } else {
             // don't compare places we can't see
-            $("#check-" + marker.p.id).attr("checked", false);
+            $("#check-" + marker.p.id).is("checked", false);
         }
     });
     load_list(places);
@@ -49,12 +51,12 @@ function load_map(json, map) {
     google.maps.event.addListener(map, 'bounds_changed', function() {
         bounds_changed(map, markers);
     });
+    bounds_changed(map, markers);
 }
 
 function load_data(map) {
     $.getJSON('/getplaces', {}, function(json) {
         load_map(json, map);
-        load_list(json);
     });
 }
 
