@@ -5,8 +5,8 @@ function load_list(places) {
     $.each(places, function(i, place) {
         div = '<div class="hospital-list-item"><a href="/place/' + place.id + 
             '">' + place.name + '</a><br>Average rating: ' + 
-            place.rating + '<br><input type="checkbox" name="place-' + place.id
-            + '" value="' + place.id + '" class="check-compare"/><hr/></div>';
+            place.rating + '<input type="checkbox" name="place-' + place.id
+            + '" value="' + place.id + '" class="check-compare pull-right"/><hr/></div>';
         list.append(div);
     });
 }

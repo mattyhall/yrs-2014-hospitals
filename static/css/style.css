@@ -108,3 +108,8 @@ body {
 .safety-3 {
     color: green;
 }
+
+.hospital-list-item {
+    padding-left: 15px;
+    padding-top: 5px;
+}
