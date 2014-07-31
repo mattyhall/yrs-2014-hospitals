@@ -54,7 +54,7 @@ function load_data(map) {
 // entry point for all initialisers
 function initialise_map() {
     // centre around sheffield
-    var map_options = {center: new google.maps.LatLng(53.420882, -1.208496), zoom: 6};
+    var map_options = {center: new google.maps.LatLng(53.867795, -1.912358), zoom: 10};
     var map = new google.maps.Map(document.getElementById('map-canvas'), map_options);
     // add the data to the map and to the list
     load_data(map);
