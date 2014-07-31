@@ -134,3 +134,20 @@ class WaitingTimes(db.Model):
     def __init__(self, place, service):
         self.place = place
         self.service_waiting_time_weeks = service
+
+class Review(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    place_id = db.Column(db.Integer, db.ForeignKey('place.id'))
+    place = db.relationship(Place, uselist=False)
+    title = db.Column(db.String(200))
+    liked = db.Column(db.String(2000))    
+    disliked = db.Column(db.String(2000))
+    advice = db.Column(db.String(2000))
+
+    def __init__(self, place, title, liked, disliked, advice):
+        self.place = place
+        self.title = title
+        self.liked = liked
+        self.disliked = disliked
+        self.advice = advice
+

@@ -93,5 +93,19 @@
       {% endfor %}
     </ul>
   {% endif %}
+  {% if reviews %}
+    <h3>Reviews</h3>
+    <div class="reviews">
+      {% for review in reviews %}
+        <h4>{{ review.title }}</h4>
+        <table>
+          <tr><td>Liked</td><td>{{ review.liked }}</td></tr>
+          <tr><td>Disliked</td><td>{{ review.disliked }}</td></tr>
+          <tr><td>Advice</td><td>{{ review.advice }}</td></tr>
+        </table>
+        <hr/>
+      {% endfor %}
+    </div>
+  {% endif %}
   <a href="#top">Back to top</a>
 {% endblock %}
