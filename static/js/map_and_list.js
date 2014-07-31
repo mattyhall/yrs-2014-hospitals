@@ -1,4 +1,5 @@
 function load_list(places) {
+    console.log(places);
     // remove all data from the list. This is incase some of the places listed
     // don't need to be included anymore
     var list = $('#hospitals-list').html('');
@@ -9,6 +10,22 @@ function load_list(places) {
             + '" value="' + place.id + '" class="check-compare pull-right"/></div>';
         list.append(div);
     });
+}
+
+function bounds_changed(map, markers) {
+    console.log(markers);
+    // find all the visible markers and include only them on the list
+    places = [];
+    $.each(markers, function(i, marker) {
+        console.log(marker);
+        if (map.getBounds().contains(marker.m.getPosition())) {
+            places.push(marker.p);
+        } else {
+            // don't compare places we can't see
+            $("#check-" + marker.p.id).attr("checked", false);
+        }
+    });
+    load_list(places);
 }
 
 function load_map(json, map) {
@@ -28,19 +45,10 @@ function load_map(json, map) {
         });
         markers.push({m: marker, p: place});
     });
+    //bounds_changed(map, markers);
     // when the user changes the zoom/position of the map
     google.maps.event.addListener(map, 'bounds_changed', function() {
-        // find all the visible markers and include only them on the list
-        places = [];
-        $.each(markers, function(i, marker) {
-            if (map.getBounds().contains(marker.m.getPosition())) {
-                places.push(marker.p);
-            } else {
-                // don't compare places we can't see
-                $("#check-" + marker.p.id).attr("checked", false);
-            }
-        });
-        load_list(places);
+        bounds_changed(map, markers);
     });
 }
 
@@ -61,7 +69,6 @@ function initialise_map() {
 
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
-            alert('Got location');
             var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             map.panTo(latlng);
             map.setZoom(12);
