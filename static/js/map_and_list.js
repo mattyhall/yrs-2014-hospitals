@@ -6,7 +6,7 @@ function load_list(places) {
         div = '<div class="hospital-list-item"><a href="/place/' + place.id + 
             '">' + place.name + '</a><br>Average rating: ' + 
             place.rating + '<input type="checkbox" name="place-' + place.id
-            + '" value="' + place.id + '" class="check-compare pull-right"/><hr/></div>';
+            + '" value="' + place.id + '" class="check-compare pull-right"/></div>';
         list.append(div);
     });
 }
