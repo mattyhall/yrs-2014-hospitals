@@ -1,4 +1,4 @@
-from loaders import ratings, places, patient_safety, cqc
+from loaders import ratings, places, patient_safety, cqc, service_waiting_times
 import models
 
 # create the tables in hospitals.db
@@ -14,3 +14,5 @@ ratings.load_ratings()
 patient_safety.load_patient_safety()
 
 cqc.load_cqc()
+
+service_waiting_times.load_service_waiting_times()

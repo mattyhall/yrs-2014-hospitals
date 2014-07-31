@@ -124,3 +124,13 @@ class PatientSafety(db.Model):
         self.blood_clots = clots
         self.recommended_by_staff = rec
         self.safe_staffing = staff
+
+class ServiceWaitingTime(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    place_id = db.Column(db.Integer, db.ForeignKey('place.id'))
+    place = db.relationship(Place, uselist=False)
+    average_waiting_time_weeks = db.Column(db.Float)
+    
+    def __init__(self, place, avg):
+        self.place = place
+        self.average_waiting_time_weeks = avg
