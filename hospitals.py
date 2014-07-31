@@ -1,6 +1,7 @@
 from flask import render_template, request
 import json
 from models import db, app, Place, Rating, PlaceServices, PatientSafety
+from models import ServiceWaitingTime
 import requests
 
 @app.template_filter()
@@ -74,8 +75,11 @@ def place(id):
     rating = Rating.query.filter_by(place=place).first()
     services = PlaceServices.query.filter_by(place=place).first()
     safety = PatientSafety.query.filter_by(place=place).first()
+    service_waiting_time = ServiceWaitingTime.query.filter_by(
+        place=place).first()
     return render_template('place.html', place=place, rating=rating,
-        services=services, safety=safety)
+        services=services, safety=safety,
+        service_waiting_time=service_waiting_time)
 
 @app.route('/compare', methods=['POST'])
 def compare():

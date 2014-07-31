@@ -74,6 +74,15 @@
       </tr>
   </table>
   {% endif %}
+  {% if service_waiting_time %}
+    <h3>Average waiting times</h3>
+    <table>
+      <tr><td>For services</td>
+        <td>{{ service_waiting_time.average_waiting_time_weeks }}
+             weeks</td>
+      </tr>
+    </table>
+  {% endif %}
   {% if services %}
     <h3>Services</h3>
     <ul>
