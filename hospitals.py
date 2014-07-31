@@ -96,7 +96,7 @@ def compare():
     headers = ['Cleanliness', 'Staff worked well', 'Dignity and respect',
         'Involved with decisions', 'Number of services', 'Infection control',
         'Checking for blood clots', 'Staff rating', 'Safe staffing %',
-        'Average service waiting time']
+        'Average service waiting time (weeks)']
     # each row is for a hospital
     rows = []
     for place in places:

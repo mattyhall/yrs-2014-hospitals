@@ -5,15 +5,7 @@
   <script type="text/javascript" src="/static/js/bars.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
-        create_barchart_horiz(100, 20, 20, function(rating) {
-          var colour = "green";
-          if (rating < 2) {
-            colour = "red";
-          } else if (rating < 4) {
-            colour = "#CC9900";
-          }
-          return colour;
-        });
+        create_barchart_horiz(100, 20, 20);
     });
   </script>
 {% endblock %}

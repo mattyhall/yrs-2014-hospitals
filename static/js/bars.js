@@ -1,3 +1,5 @@
+var red = "#E33B3B";
+
 function create_bar(element_id, rating) {
     // the width of a bar on the individual page
     w = 100;
@@ -19,7 +21,7 @@ function create_bar(element_id, rating) {
            .attr("y", 0)
            .attr("width", w)
            .attr("height", h)
-           .attr("fill", "red");
+           .attr("fill", red);
 
         // colour part of the bar green to show how good the rating is
         // this will look sort of like a progress bar
@@ -38,7 +40,7 @@ function create_bar(element_id, rating) {
 
 // bar width, height, multiplier to go from rating to bar width, medium
 // threshold, good threshold
-function create_barchart_horiz(w, h, mult, colour_func) {
+function create_barchart_horiz(w, h, mult) {
     var elems = $(".rating");
     $.each(elems, function(i, elem) {
         var rating = $(elem).text();
@@ -47,7 +49,6 @@ function create_barchart_horiz(w, h, mult, colour_func) {
             $(elem).text("No rating");
             return;
         }
-        var colour = colour_func(rating)
         var svg = d3.select("#" + $(elem).attr("id"))
                     .append("svg")
                     .attr("width", w)
@@ -55,9 +56,15 @@ function create_barchart_horiz(w, h, mult, colour_func) {
         svg.append("rect")
            .attr("x", 0)
            .attr("y", 0)
+           .attr("width", w)
+           .attr("height", h)
+           .attr("fill", red);
+        svg.append("rect")
+           .attr("x", 0)
+           .attr("y", 0)
            .attr("width", rating * mult)
            .attr("height", h)
-           .attr("fill", colour);
+           .attr("fill", "green");
         svg.append("text")
            .text(function() {return rating})
            .attr("y", 15)
