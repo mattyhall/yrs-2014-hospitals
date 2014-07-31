@@ -94,7 +94,8 @@ def compare():
     places = [Place.query.filter_by(id=id).first() for id in place_ids]
     headers = ['Cleanliness', 'Staff worked well', 'Dignity and respect',
         'Involved with decisions', 'Number of services', 'Infection control',
-        'Checking for blood clots', 'Staff rating', 'Safe staffing %']
+        'Checking for blood clots', 'Staff rating', 'Safe staffing %',
+        'Average service waiting time']
     # each row is for a hospital
     rows = []
     for place in places:
@@ -117,6 +118,8 @@ def compare():
             row['number_of_services'] = len(
                 [service for service in place_services.services
                          if service.value])
+        waiting_times = WaitingTimes.query.filter_by(place=place).first()
+        row['waiting_times'] = waiting_times
         rows.append(row)
     return render_template('compare.html', rows=rows, headers=headers)
 

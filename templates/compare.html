@@ -62,6 +62,12 @@
           {% else %}
             <td>No data available</td>
           {% endif %}
+
+          {% if place.waiting_times.service_waiting_time_weeks %}
+            <td>{{ place.waiting_times.service_waiting_time_weeks | round}}</td>
+          {% else %}
+            <td>No data available</td>
+          {% endif %}
         </tr>
       {% endfor %}
     </tr>
