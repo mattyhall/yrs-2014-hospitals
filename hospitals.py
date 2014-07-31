@@ -1,8 +1,13 @@
 from flask import render_template, request
 import json
 from models import db, app, Place, Rating, PlaceServices, PatientSafety
-from models import ServiceWaitingTime
+from models import WaitingTimes
 import requests
+
+@app.template_filter()
+def round(i):
+    # XXX: I am a terrible, terrible person
+    return '{:.2f}'.format(i)
 
 @app.template_filter()
 def integer_to_rating(i):
@@ -75,11 +80,10 @@ def place(id):
     rating = Rating.query.filter_by(place=place).first()
     services = PlaceServices.query.filter_by(place=place).first()
     safety = PatientSafety.query.filter_by(place=place).first()
-    service_waiting_time = ServiceWaitingTime.query.filter_by(
-        place=place).first()
+    waiting_times = WaitingTimes.query.filter_by(place=place).first()
     return render_template('place.html', place=place, rating=rating,
         services=services, safety=safety,
-        service_waiting_time=service_waiting_time)
+        waiting_times=waiting_times)
 
 @app.route('/compare', methods=['POST'])
 def compare():

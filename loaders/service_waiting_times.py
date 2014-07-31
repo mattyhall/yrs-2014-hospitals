@@ -23,6 +23,6 @@ def load_service_waiting_times():
             total += patients * n
         avg = total / patient_total
         for place in places:
-            waiting_time = models.ServiceWaitingTime(place, avg)
-            models.db.session.add(waiting_time)
+            waiting_times = models.WaitingTimes(place, avg)
+            models.db.session.add(waiting_times)
     models.db.session.commit()

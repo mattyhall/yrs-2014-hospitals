@@ -48,7 +48,7 @@ class Place(db.Model):
             return 'No rating'
 
         avg = sum / n
-        # TODO: I am a terrible, terrible person
+        # XXX: I am a terrible, terrible person
         return '{:.2f}'.format(sum / n)
 
     def to_dict(self):
@@ -125,12 +125,12 @@ class PatientSafety(db.Model):
         self.recommended_by_staff = rec
         self.safe_staffing = staff
 
-class ServiceWaitingTime(db.Model):
+class WaitingTimes(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     place_id = db.Column(db.Integer, db.ForeignKey('place.id'))
     place = db.relationship(Place, uselist=False)
-    average_waiting_time_weeks = db.Column(db.Float)
+    service_waiting_time_weeks = db.Column(db.Float)
     
-    def __init__(self, place, avg):
+    def __init__(self, place, service):
         self.place = place
-        self.average_waiting_time_weeks = avg
+        self.service_waiting_time_weeks = service

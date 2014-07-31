@@ -74,11 +74,11 @@
       </tr>
   </table>
   {% endif %}
-  {% if service_waiting_time %}
+  {% if waiting_times %}
     <h3>Average waiting times</h3>
     <table>
       <tr><td>For services</td>
-        <td>{{ service_waiting_time.average_waiting_time_weeks }}
+        <td>{{ waiting_times.service_waiting_time_weeks | round }}
              weeks</td>
       </tr>
     </table>
