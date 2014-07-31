@@ -82,8 +82,8 @@
              weeks</td>
       </tr>
       <tr><td>Time taken to be assessed in an emergency</td>
-        <td>{% if waiting_times.emergency_assesment_time_time %}
-              {{ waiting_times.emergency_assesment_time_time }} minutes
+        <td>{% if waiting_times.emergency_assesment_time != None %}
+              {{ waiting_times.emergency_assesment_time }} minutes
             {% else %}
               No data available
             {% endif %}</td>

@@ -68,6 +68,24 @@
           {% else %}
             <td>No data available</td>
           {% endif %}
+
+          {% if place.waiting_times.time_to_treatment_minutes %}
+            <td>{{ place.waiting_times.time_to_treatment_minutes }}</td>
+          {% else %}
+            <td>No data available</td>
+          {% endif %}
+
+          {% if place.waiting_times.emergency_assesment_time != None %}
+            <td>{{ place.waiting_times.emergency_assesment_time }}</td>
+          {% else %}
+            <td>No data available</td>
+          {% endif %}
+
+          {% if place.waiting_times.total_time_in_ae != None %}
+            <td>{{ place.waiting_times.total_time_in_ae }}</td>
+          {% else %}
+            <td>No data available</td>
+          {% endif %}
         </tr>
       {% endfor %}
     </tr>

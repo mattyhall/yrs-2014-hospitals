@@ -93,10 +93,14 @@ def compare():
     # id of the place we want
     place_ids = [v for k, v in request.form.items() if k.startswith('place')]
     places = [Place.query.filter_by(id=id).first() for id in place_ids]
-    headers = ['Cleanliness', 'Staff worked well', 'Dignity and respect',
-        'Involved with decisions', 'Number of services', 'Infection control',
-        'Checking for blood clots', 'Staff rating', 'Safe staffing %',
-        'Average service waiting time (weeks)']
+    headers = ['Cleanliness (/5)', 'Staff worked well (/5)', 
+        'Dignity and respect (/5)', 'Involved with decisions (/5)', 
+        'Number of services', 'Infection control', 'Checking for blood clots',
+        'Staff rating', 'Safe staffing (%)',
+        'Average service waiting time (weeks)', 
+        'Average time to treatment in A+E (minutes)',
+        'Average time to assessment in A+E after an emergency (minutes)',
+        'Average total time in A+E (minutes)']
     # each row is for a hospital
     rows = []
     for place in places:
