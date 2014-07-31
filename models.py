@@ -130,6 +130,9 @@ class WaitingTimes(db.Model):
     place_id = db.Column(db.Integer, db.ForeignKey('place.id'))
     place = db.relationship(Place, uselist=False)
     service_waiting_time_weeks = db.Column(db.Float)
+    time_to_treatment_minutes = db.Column(db.Integer)
+    total_time_in_ae = db.Column(db.Integer)
+    emergency_assesment_time = db.Column(db.Integer)
     
     def __init__(self, place, service):
         self.place = place

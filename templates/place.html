@@ -75,11 +75,20 @@
   </table>
   {% endif %}
   {% if waiting_times %}
-    <h3>Average waiting times</h3>
+    <h3>Average times</h3>
     <table>
-      <tr><td>For services</td>
+      <tr><td>Time waiting for services</td>
         <td>{{ waiting_times.service_waiting_time_weeks | round }}
              weeks</td>
+      </tr>
+      <tr><td>Time taken to be assessed in an emergency</td>
+        <td>{{ waiting_times.emergency_assesment_time_time }} minutes</td>
+      </tr>
+      <tr><td>Time taken to be treated</td>
+        <td>{{ waiting_times.time_to_treatment_minutes }} minutes</td>
+      </tr>
+      <tr><td>Total time in A+E</td>
+        <td>{{ waiting_times.total_time_in_ae }} minutes</td>
       </tr>
     </table>
   {% endif %}
