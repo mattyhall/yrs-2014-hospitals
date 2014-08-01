@@ -120,3 +120,7 @@ body {
     max-height: 500px;
     border: 2px solid #CCC;
 }
+
+#map-canvas {
+        border:1px solid #ccc;
+}
