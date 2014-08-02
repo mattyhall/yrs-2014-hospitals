@@ -8,7 +8,8 @@ body {
 
 #tfnewsearch{
     float:right;
-    padding:20px;
+    padding:5px;
+    right: -10px;
 }
 
 .tftextinput{
@@ -82,11 +83,12 @@ body {
 }
 
 .submitbutton {
-    width: 264px;
+    width: 256px;
     background: #007ead;
     background: -webkit-gradient(linear, left top, left bottom, from(#0095cc), to(#00678e));
     background: -moz-linear-gradient(top,  #0095cc,  #00678e);ound-color: #008EC3;
     color: #ffffff;
+
 }
 .copyright {
     font-size: 7pt;
@@ -125,3 +127,27 @@ body {
 #map-canvas {
         border:1px solid #ccc;
 }
+
+#test {
+    background-color: #ffffff;
+    width: 1137px;
+    height: 110px;
+    border-radius: 10px;
+    position: relative;
+    right: -14px;
+}
+
+#main {
+    background-color: #ffffff;
+    width: 100%;
+    height: 520px;
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-left: 15px;
+    padding-right: 20px;
+}
+
+.image {
+    padding-top: 2px;
+}
+    

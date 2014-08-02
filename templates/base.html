@@ -33,14 +33,16 @@
   <a name="top"></a>
 <div class="container">
 	<div class="row clearfix">
-		<div class="col-md-2 column">
-			<a href="/"><img alt="140x140" src="/static/img/hospital-finder.png"></a>
-		</div>
-		<div class="col-md-10 column">
-			<h1>
-				Hospital Finder
-			</h1>
-      {% block subtitle %}{% endblock %}
+		<div id="test">
+			<div class="col-md-2 column">
+				<a href="/"><img alt="140x140" src="/static/img/hospital-finder.png"></a>
+			</div>
+			<div class="col-md-10 column">
+				<h1>
+					Hospital Finder
+				</h1>
+    	 		 {% block subtitle %}{% endblock %}
+			</div>
 		</div>
 	</div>
   {% block content %}{% endblock %}
