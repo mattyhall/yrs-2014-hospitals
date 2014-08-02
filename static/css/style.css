@@ -116,6 +116,7 @@ body {
     padding-bottom: 10px;
     padding-top: 10px;
     padding-right: 10px;
+    color 
 }
 
 .reviews {
@@ -126,11 +127,12 @@ body {
 
 #map-canvas {
         border:1px solid #ccc;
+
 }
 
-#test {
-    background-color: #ffffff;
-    width: 1137px;
+#topsection {
+    background: -webkit-linear-gradient(left, #1e5799 0%,#2b28fc 0%,#2989d8 15%,#7db9e8 100%);
+    width: 1149px;
     height: 110px;
     border-radius: 10px;
     position: relative;
@@ -138,7 +140,7 @@ body {
 }
 
 #main {
-    background-color: #ffffff;
+    background: -webkit-linear-gradient(top, #7db9e8 0%,#2b28fc 50%,#2b28fc 50%,#7db9e8 100%);
     width: 100%;
     height: 520px;
     border-radius: 10px;
