@@ -22,7 +22,6 @@ def integer_to_rating(i):
         return 'Good'
     return 'No data available'
 
-
 @app.route("/")
 def index():
     # all the clever stuff is done by JS on this page, so we dob't have to
@@ -47,6 +46,7 @@ def place_location():
     '''
 
     q = request.args.get('q', None)
+    print(q)
     r = requests.get('http://api.geonames.org/search', params={'q': q, 
         'username': 'mattyhall', 'type': 'json', 'country': 'GB'})
     loc_json = r.json()
