@@ -51,13 +51,13 @@
     om/IRenderState
     (render-state [_ state]
       (dom/div nil
-       (dom/input #js {:id "seach" :type "text" :className "col-md-11 tftextinput"
-                      :name "q" :maxLength 240 :value (:query state)
-                      :placeholder "Please enter a location or a hospital"
-                      :onChange #(om/set-state! owner :query (.. % -target -value))
-                      :onKeyUp #(if (= (.-keyCode %) 13) (search-callback owner))} nil)
-       (dom/input #js {:type "submit" :value "Search" :className "tfbutton"
-                       :id "search-btn" :onClick #(search-callback owner)})))))
+        (dom/input #js {:id "seach" :type "text" :className "col-md-11 tftextinput"
+                       :name "q" :maxLength 240 :value (:query state)
+                       :placeholder "Please enter a location or a hospital"
+                       :onChange #(om/set-state! owner :query (.. % -target -value))
+                       :onKeyUp #(if (= (.-keyCode %) 13) (search-callback owner))} nil)
+        (dom/input #js {:type "submit" :value "Search" :className "tfbutton"
+                        :id "search-btn" :onClick #(search-callback owner)})))))
 
 (om/root map-view
   app-state
@@ -81,9 +81,9 @@
       (let [marker   (:marker place)
             pos      (. marker getPosition)
             visible  (.. g-map getBounds (contains pos))]
-      (swap! app-state assoc-in [:places i :visible] visible)
-      (when (not visible)
-        (swap! app-state assoc-in [:places i :checked] false))))))
+        (swap! app-state assoc-in [:places i :visible] visible)
+        (when (not visible)
+          (swap! app-state assoc-in [:places i :checked] false))))))
 
 (defn places-callback [response]
   (let [v     (js->clj (.getResponseJson (.-target response)) :keywordize-keys true)
@@ -94,10 +94,10 @@
                                         {:position (google.maps.LatLng.
                                                     (:lat place) (:lng place))
                                          :map g-map})]
-	(swap! app-state update-in [:places] #(conj % (-> place
-                                                    (assoc :marker marker)
-                                                    (assoc :visible true)
-                                                    (assoc :checked false))))))
+	      (swap! app-state update-in [:places] #(conj % (-> place
+                                                          (assoc :marker marker)
+                                                          (assoc :visible true)
+                                                          (assoc :checked false))))))
     (google.maps.event.addListener g-map "bounds_changed" bounds-changed)
     (bounds-changed)))
 
