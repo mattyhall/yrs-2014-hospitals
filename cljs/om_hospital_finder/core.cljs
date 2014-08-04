@@ -30,7 +30,7 @@
   (reify
     om/IRender
     (render [_]
-      (let [places (filter :visible (:places @app-state))]
+      (let [places (filter :visible (get app :places))]
         (apply dom/div nil (map (fn [place]
           (dom/div #js {:className "hospital-list-item"}
             (dom/a #js {:href (str "/place/" (:id place))} (:name place))
@@ -39,7 +39,8 @@
             (dom/input #js {:id (str "check-" (:id place))
                             :className "check-compare pull-right"
                             :name (str "place-" (:id place))
-                            :value (:id place)
+                            :onClick #(om/transact! place [:checked] not)
+                            :value (:id place) :checked (:checked place)
                             :type "checkbox"} nil)))
           places))))))
 
@@ -80,7 +81,9 @@
       (let [marker   (:marker place)
             pos      (. marker getPosition)
             visible  (.. g-map getBounds (contains pos))]
-      (swap! app-state assoc-in [:places i :visible] visible)))))
+      (swap! app-state assoc-in [:places i :visible] visible)
+      (when (not visible)
+        (swap! app-state assoc-in [:places i :checked] false))))))
 
 (defn places-callback [response]
   (let [v     (js->clj (.getResponseJson (.-target response)) :keywordize-keys true)
@@ -92,8 +95,9 @@
                                                     (:lat place) (:lng place))
                                          :map g-map})]
 	(swap! app-state update-in [:places] #(conj % (-> place
-                                                          (assoc :marker marker)
-                                                          (assoc :visible true))))))
+                                                    (assoc :marker marker)
+                                                    (assoc :visible true)
+                                                    (assoc :checked false))))))
     (google.maps.event.addListener g-map "bounds_changed" bounds-changed)
     (bounds-changed)))
 
