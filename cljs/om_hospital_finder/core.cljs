@@ -38,6 +38,7 @@
   {:target (. js/document (getElementById "map-canvas"))})
 
 
+
 (defn hospital-item-view [place owner]
   (reify
     om/IRender
@@ -50,7 +51,8 @@
                         :className "check-compare pull-right"
                         :name (str "place-" (:id place))
                         :onClick #(om/transact! place [:checked] not)
-                        :value (:id place) :checked (:checked place)
+                        :value (:id place)
+                        :checked (:checked place)
                         :type "checkbox"} nil)))))
 
 (defn list-hospitals-view [app owner]
@@ -58,11 +60,13 @@
     om/IRender
     (render [_]
       (let [places (filter :visible (:places app))]
-        (apply dom/div nil (om/build-all hospital-item-view places))))))
+        (dom/form #js {:id "compare-form" :action "/compare" :method "post"}
+          (apply dom/div #js {:id "hospitals-list"} (om/build-all hospital-item-view places))
+          (dom/button #js {:className "btn btn-default navbar-btn submitbutton"} "Compare"))))))
 
 (om/root list-hospitals-view
   app-state
-  {:target (. js/document (getElementById "hospitals-list"))})
+  {:target (. js/document (getElementById "hospitals-list-div"))})
 
 
 

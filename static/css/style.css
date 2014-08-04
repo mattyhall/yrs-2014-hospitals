@@ -62,6 +62,7 @@ body {
     font:16px/26px Georgia, Garamond, Serif;
     overflow:auto;
     min-height: 460px;
+    background-color: #f1f1f1;
 }
 
 .hospital-detail td {
@@ -116,7 +117,7 @@ body {
     padding-bottom: 10px;
     padding-top: 10px;
     padding-right: 10px;
-    color 
+    color
 }
 
 .reviews {
@@ -152,4 +153,4 @@ body {
 .image {
     padding-top: 2px;
 }
-    
+
