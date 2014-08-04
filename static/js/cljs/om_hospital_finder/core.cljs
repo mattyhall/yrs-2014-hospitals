@@ -55,12 +55,20 @@
                         :checked (:checked place)
                         :type "checkbox"} nil)))))
 
+(defn compare-form-submit []
+  (let [selected (count (filter :checked (:places @app-state)))]
+    (when (<= selected 1)
+      (do
+        (swap! app-state assoc :errors ["Please select two or more places to compare"])
+        false))))
+
 (defn list-hospitals-view [app owner]
   (reify
     om/IRender
     (render [_]
       (let [places (filter :visible (:places app))]
-        (dom/form #js {:id "compare-form" :action "/compare" :method "post"}
+        (dom/form #js {:id "compare-form" :action "/compare" :method "post"
+                       :onSubmit #(compare-form-submit)}
           (apply dom/div #js {:id "hospitals-list"} (om/build-all hospital-item-view places))
           (dom/button #js {:className "btn btn-default navbar-btn submitbutton"} "Compare"))))))
 
