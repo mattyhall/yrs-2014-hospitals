@@ -38,28 +38,32 @@
   {:target (. js/document (getElementById "map-canvas"))})
 
 
+(defn hospital-item-view [place owner]
+  (reify
+    om/IRender
+    (render [_]
+      (dom/div #js {:className "hospital-list-item"}
+        (dom/a #js {:href (str "/place/" (:id place))} (:name place))
+        (dom/br nil nil)
+        (str "Average rating: " (:rating place))
+        (dom/input #js {:id (str "check-" (:id place))
+                        :className "check-compare pull-right"
+                        :name (str "place-" (:id place))
+                        :onClick #(om/transact! place [:checked] not)
+                        :value (:id place) :checked (:checked place)
+                        :type "checkbox"} nil)))))
 
 (defn list-hospitals-view [app owner]
   (reify
     om/IRender
     (render [_]
-      (let [places (filter :visible (get app :places))]
-        (apply dom/div nil (map (fn [place]
-          (dom/div #js {:className "hospital-list-item"}
-            (dom/a #js {:href (str "/place/" (:id place))} (:name place))
-            (dom/br nil nil)
-            (str "Average rating: " (:rating place))
-            (dom/input #js {:id (str "check-" (:id place))
-                            :className "check-compare pull-right"
-                            :name (str "place-" (:id place))
-                            :onClick #(om/transact! place [:checked] not)
-                            :value (:id place) :checked (:checked place)
-                            :type "checkbox"} nil)))
-          places))))))
+      (let [places (filter :visible (:places app))]
+        (apply dom/div nil (om/build-all hospital-item-view places))))))
 
 (om/root list-hospitals-view
   app-state
   {:target (. js/document (getElementById "hospitals-list"))})
+
 
 
 (defn search-request-callback [response]
