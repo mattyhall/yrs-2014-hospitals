@@ -3,8 +3,8 @@
   :url "http://example.com/FIXME"
 
     :ring {:handler hospital-finder.web.handler/app,
-         :init hospital-finder.web.handler/init,
-         :destroy hospital-finder.web.handler/destroy}
+           :init hospital-finder.web.handler/init,
+           :destroy hospital-finder.web.handler/destroy}
 
   :ragtime {:migrations ragtime.sql.files/migrations,
             :database "jdbc:sqlite3://hospitals.db"}
