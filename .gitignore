@@ -1,4 +1,5 @@
 *.*.swp
 *.*.sv
-__pycache__
-*.pyc
+.lein-env
+target
+*.log
