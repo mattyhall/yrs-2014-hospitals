@@ -5,8 +5,43 @@
 
 (defdb db schema/db-spec)
 
+(declare place service)
+
+(defentity rating
+  (database db)
+  (belongs-to place))
+
+(defentity place-services
+  (database db)
+  (table :place_services)
+  (belongs-to place)
+  (has-many service))
+
+(defentity service
+  (database db)
+  (belongs-to place-services))
+
+(defentity patient-safety
+  (database db)
+  (table :patient_safety)
+  (belongs-to place))
+
+(defentity waiting-times
+  (database db)
+  (table :waiting_times)
+  (belongs-to place))
+
+(defentity review
+  (database db)
+  (belongs-to place))
+
 (defentity place
-  (database db))
+  (database db)
+  (has-one rating)
+  (has-one place-services)
+  (has-one patient-safety)
+  (has-one waiting-times)
+  (has-many review))
 
 (defn get-all-places [& flds]
   (select place
@@ -17,5 +52,10 @@
 
 (defn get-place [id]
   (first (select place
+           (with rating)
+           (with patient-safety)
+           (with waiting-times)
+           (with place-services)
+           (with review)
            (where {:id id})
            (limit 1))))

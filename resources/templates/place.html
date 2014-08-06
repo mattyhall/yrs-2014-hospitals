@@ -5,10 +5,10 @@
   <script type="text/javascript" src="/static/js/bars.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
-      create_bar("cleanliness", {{ rating.cleanliness }});
-      create_bar("staff", {{ rating.staff_worked_well }});
-      create_bar("respect", {{ rating.dignity_respect }});
-      create_bar("decisions", {{ rating.involved_with_decision }});
+      create_bar("cleanliness", {{ cleanliness }});
+      create_bar("staff", {{ staff_worked_well }});
+      create_bar("respect", {{ dignity_respect }});
+      create_bar("decisions", {{ involved_with_decision }});
     });
   </script>
 {% endblock %}
@@ -57,51 +57,51 @@
       <td id="decisions"></td>
     </tr>
   </table>
-  {% if safety %}
+  {% if any infection_control blood_clots recommended_by_staff%}
     <h3>Patient safety</h3>
     <table>
       <tr><td>Infection control</td>
-        <td class="safety-{{ safety.infection_control }}">{{ safety.infection_control | integer_to_rating }}</td>
+        <td class="safety-{{ infection_control }}">{{ infection_control }}</td>
       </tr>
       <tr><td>Checking for blood clots</td>
-        <td class="safety-{{ safety.blood_clots }}">{{ safety.blood_clots | integer_to_rating }}</td>
+        <td class="safety-{{ blood_clots }}">{{ blood_clots }}</td>
       </tr>
       <tr><td>Staff rating</td>
-        <td class="safety-{{ safety.recommended_by_staff }}">{{ safety.recommended_by_staff | integer_to_rating }}</td>
+        <td class="safety-{{ recommended_by_staff }}">{{ recommended_by_staff }}</td>
       </tr>
       <tr><td>Percentage of safe staffing rate</td>
-        <td>{{ safety.safe_staffing }}%</td>
+        <td>{{ safe_staffing }}%</td>
       </tr>
   </table>
   {% endif %}
-  {% if waiting_times %}
+  {% if any service_waiting_time_weeks emergency_assesment_time time_to_treatment_minutes total_time_in_ae %}
     <h3>Average times</h3>
     <table>
       <tr><td>Time waiting for services</td>
-        <td>{% if waiting_times.service_waiting_time_weeks %}
-              {{ waiting_times.service_waiting_time_weeks | round }}
+        <td>{% if service_waiting_time_weeks %}
+              {{ service_waiting_time_weeks  }}
                weeks
             {% else %}
                No data available
             {% endif %}</td>
       </tr>
       <tr><td>Time taken to be assessed in an emergency</td>
-        <td>{% if waiting_times.emergency_assesment_time != None %}
-              {{ waiting_times.emergency_assesment_time }} minutes
+        <td>{% if emergency_assesment_time  %}
+              {{ emergency_assesment_time }} minutes
             {% else %}
               No data available
             {% endif %}</td>
       </tr>
       <tr><td>Time taken to be treated</td>
-        <td>{% if waiting_times.time_to_treatment_minutes %}
-              {{ waiting_times.time_to_treatment_minutes }} minutes
+        <td>{% if time_to_treatment_minutes %}
+              {{ time_to_treatment_minutes }} minutes
             {% else %}
               No data available
             {% endif %}</td>
       </tr>
       <tr><td>Total time in A+E</td>
-        <td>{% if waiting_times.total_time_in_ae %}
-              {{ waiting_times.total_time_in_ae }} minutes
+        <td>{% if total_time_in_ae %}
+              {{ total_time_in_ae }} minutes
             {% else %}
               No data available
             {% endif %}</td>
@@ -118,15 +118,15 @@
       {% endfor %}
     </ul>
   {% endif %}
-  {% if reviews %}
+  {% if review %}
     <h3>Reviews</h3>
     <div class="reviews">
-      {% for review in reviews %}
-        <h4>{{ review.title }}</h4>
+      {% for rev in review %}
+        <h4>{{ rev.title }}</h4>
         <table>
-          <tr><td>Liked</td><td>{{ review.liked }}</td></tr>
-          <tr><td>Disliked</td><td>{{ review.disliked }}</td></tr>
-          <tr><td>Advice</td><td>{{ review.advice }}</td></tr>
+          <tr><td>Liked</td><td>{{ rev.liked }}</td></tr>
+          <tr><td>Disliked</td><td>{{ rev.disliked }}</td></tr>
+          <tr><td>Advice</td><td>{{ rev.advice }}</td></tr>
         </table>
         <hr/>
       {% endfor %}
