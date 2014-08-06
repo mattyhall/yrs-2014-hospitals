@@ -14,3 +14,8 @@
     ; it's body. Hence the lambda inside of brackets - select applies the query
     ; to the lambda
     (#(apply fields % flds))))
+
+(defn get-place [id]
+  (first (select place
+           (where {:id id})
+           (limit 1))))

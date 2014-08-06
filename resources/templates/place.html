@@ -13,34 +13,34 @@
   </script>
 {% endblock %}
 
-{% block title %}{{ place.name }}{% endblock %}
- 
+{% block title %}{{ name }}{% endblock %}
+
 {% block subtitle %}<h3>Extra information</h3>{% endblock %}
 
 {% block content %}
-  <h1>{{ place.name }}</h1>
+  <h1>{{ name }}</h1>
   <table class="hospital-detail">
-    {% if place.telephone %}
-      <tr><td>Telephone</td><td>{{ place.telephone}}</td></tr>
+    {% if telephone %}
+      <tr><td>Telephone</td><td>{{ telephone}}</td></tr>
     {% endif %}
     <tr>
       <td>Address</td>
       <td>
-        {% if place.street %}
-          {{ place.street }}<br/>
+        {% if street %}
+          {{ street }}<br/>
         {% endif %}
-        {% if place.locality %}
-          {{ place.locality }}<br/>
+        {% if locality %}
+          {{ locality }}<br/>
         {% endif %}
-        {% if place.region %}
-          {{ place.region }}<br/>
+        {% if region %}
+          {{ region }}<br/>
         {% endif %}
-        {% if place.postcode %}
-          {{ place.postcode }}<br/>
+        {% if postcode %}
+          {{ postcode }}<br/>
         {% endif %}
       </td>
     </tr>
-    <tr><td>Directions</td><td><a href="https://www.google.com/maps/preview?daddr={{ place.postcode }}">Direct me!</a></tr>
+    <tr><td>Directions</td><td><a href="https://www.google.com/maps/preview?daddr={{ postcode }}">Direct me!</a></tr>
   </table>
   <h3>Average Patient Ratings</h3>
   <table class="ratings-table">
