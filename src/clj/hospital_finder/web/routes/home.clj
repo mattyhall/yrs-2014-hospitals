@@ -21,6 +21,9 @@
          (when (.startsWith k "place")
            (Integer/parseInt v)))))
 
+(defn number-of-services [place]
+  (assoc place :number_of_services (count (:service place))))
+
 (defn compare-page [request]
   (let [ids     (parse-compare-form (:form-params request))
         places  (apply get-places ids)
@@ -30,7 +33,7 @@
                  "Average service waiting time (weeks)", "Average time to treatment in A+E (minutes)",
                  "Average time to assessment in A+E after an emergency (minutes)",
                  "Average total time in A+E (minutes)"]]
-    (layout/render "compare.html" {:places places
+    (layout/render "compare.html" {:places (map number-of-services places)
                                    :headers headers})))
 
 (defroutes home-routes
