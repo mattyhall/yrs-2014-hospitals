@@ -128,11 +128,11 @@
   (let [v     (js->clj (.getResponseJson (.-target response)) :keywordize-keys true)
         g-map (:map @app-state)]
     (doseq [place v]
-        (let [info  (google.maps.InfoWindow. #js {:content (:name place)})
-             marker (google.maps.Marker. #js
-                                        {:position (google.maps.LatLng.
-                                                    (:lat place) (:lng place))
-                                         :map g-map})]
+      (let [info  (google.maps.InfoWindow. #js {:content (:name place)})
+           marker (google.maps.Marker. #js
+                                      {:position (google.maps.LatLng.
+                                                  (:lat place) (:lng place))
+                                       :map g-map})]
 	      (swap! app-state update-in [:places] #(conj % (-> place
                                                           (assoc :marker marker)
                                                           (assoc :visible true)
