@@ -65,3 +65,8 @@
 
 (defn get-place [id]
   (first (get-places id)))
+
+(defn get-place-by-name [name]
+  (first (select place
+           (fields :name :lat :lng)
+           (where {:name [like name]}))))

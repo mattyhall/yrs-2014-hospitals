@@ -1,7 +1,9 @@
 (ns hospital-finder.web.routes.home
   (:require [compojure.core :refer :all]
             [hospital-finder.web.layout :as layout]
-            [taoensso.timbre :as timbre])
+            [taoensso.timbre :as timbre]
+            [org.httpkit.client :as client]
+            [clojure.data.json :as j])
   (:use [hospital-finder.db.core]
         [noir.response :exclude [empty]]))
 
@@ -36,8 +38,29 @@
     (layout/render "compare.html" {:places (map number-of-services places)
                                    :headers headers})))
 
+(defn get-json [url params]
+  (j/read-str (:body @(client/get url {:as :text :query-params params})) :key-fn keyword))
+
+(defn search-page [q]
+  (let [geo      (get-json "http://api.geonames.org/search"
+                   {:q q :username "mattyhall" :type "json" :country "GB"})
+        pc       (get-json "http://uk-postcodes.com/postcode/search"
+                   {:q q :format "json"})
+        place    (get-place-by-name q)
+        geo-cond (and (contains? geo :geonames) (> (count (:geonames geo)) 0))]
+    (json
+      (cond
+        geo-cond                    (-> (get-in geo [:geonames 0])
+                                        (assoc :status "ok"))
+        place                       place
+        (not (contains? pc :error)) (-> (get pc :geo)
+                                        (assoc :status "ok"))
+        :else                       {:status "error"}))))
+
+
 (defroutes home-routes
   (GET "/" [] (home-page))
+  (GET "/placelocation" [q] (search-page q))
   (GET "/getplaces" [] (get-places-page))
   (GET "/place/:id" [id] (place-page id))
   (POST "/compare" request (compare-page request)))

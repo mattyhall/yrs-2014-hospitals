@@ -44,6 +44,8 @@
                  [ragtime "0.3.6"]
                  [lib-noir "0.8.4"]
                  [org.clojure/clojurescript "0.0-2280"]
+                 [http-kit "2.1.16"]
+                 [org.clojure/data.json "0.2.5"]
                  [org.clojure/core.async "0.1.267.0-0d7780-alpha"]
                  [om "0.7.0"]]
 
