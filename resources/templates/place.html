@@ -108,12 +108,12 @@
       </tr>
     </table>
   {% endif %}
-  {% if services %}
+  {% if service %}
     <h3>Services</h3>
     <ul>
-      {% for service in services.services %}
-        {% if service.value %}
-          <li>{{ service.name }}</li>
+      {% for serv in service %}
+        {% if serv.value %}
+          <li>{{ serv.name }}</li>
         {% endif %}
       {% endfor %}
     </ul>

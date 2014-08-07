@@ -55,7 +55,9 @@
            (with rating)
            (with patient-safety)
            (with waiting-times)
-           (with place-services)
+           (with place-services
+             (with service
+               (where {:value true})))
            (with review)
            (where {:id id})
            (limit 1))))
