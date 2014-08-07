@@ -50,14 +50,18 @@
     ; to the lambda
     (#(apply fields % flds))))
 
+(defn get-places [& ids]
+  (select place
+    (with rating)
+    (with patient-safety)
+    (with waiting-times)
+    (with place-services
+      (with service
+        (where {:value true})))
+    (with review)
+    ; makes sure there is only one rating for each place
+    (group :place.id)
+    (where {:place.id [in ids]})))
+
 (defn get-place [id]
-  (first (select place
-           (with rating)
-           (with patient-safety)
-           (with waiting-times)
-           (with place-services
-             (with service
-               (where {:value true})))
-           (with review)
-           (where {:id id})
-           (limit 1))))
+  (first (get-places id)))

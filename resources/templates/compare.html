@@ -22,13 +22,13 @@
         <th>{{ header }}</th>
       {% endfor %}
 
-      {% for place in rows %}
+      {% for place in places %}
         <tr>
           <td><a href="/place/{{ place.id}}">{{ place.name }}</a></td>
           <td class="rating" id="c-rat-{{place.id}}">{{ place.cleanliness }}</td>
-          <td class="rating" id="s-rat-{{place.id}}">{{ place.staff }}</td>
-          <td class="rating" id="d-rat-{{place.id}}">{{ place.dignity }}</td>
-          <td class="rating" id="i-rat-{{place.id}}">{{ place.involved }}</td>
+          <td class="rating" id="s-rat-{{place.id}}">{{ place.staff_worked_well }}</td>
+          <td class="rating" id="d-rat-{{place.id}}">{{ place.dignity_respect }}</td>
+          <td class="rating" id="i-rat-{{place.id}}">{{ place.involved_with_decision }}</td>
           <td>
             {% if place.number_of_services %}
               {{ place.number_of_services }}
@@ -36,53 +36,53 @@
               No data available
             {% endif %}
           </td>
-          {% if place.safety.infection_control %}
-            <td class="safety-{{ place.safety.infection_control }}">
-              {{ place.safety.infection_control | integer_to_rating }}</td>
+          {% if place.infection_control %}
+            <td class="safety-{{ place.infection_control }}">
+              {{ place.infection_control }}</td>
           {% else %}
             <td>No data available</td>
           {% endif %}
 
-          {% if place.safety.blood_clots %}
-            <td class="safety-{{ place.safety.blood_clots }}">
-              {{ place.safety.blood_clots | integer_to_rating }}</td>
+          {% if place.blood_clots %}
+            <td class="safety-{{ place.blood_clots }}">
+              {{ place.blood_clots }}</td>
           {% else %}
             <td>No data available</td>
           {% endif %}
 
-          {% if place.safety.recommended_by_staff %}
-            <td class="safety-{{ place.safety.recommended_by_staff }}">
-              {{ place.safety.recommended_by_staff | integer_to_rating }}</td>
+          {% if place.recommended_by_staff %}
+            <td class="safety-{{ place.recommended_by_staff }}">
+              {{ place.recommended_by_staff }}</td>
           {% else %}
             <td>No data available</td>
           {% endif %}
 
-          {% if place.safety.safe_staffing %}
-            <td>{{ place.safety.safe_staffing }}%</td>
+          {% if place.safe_staffing %}
+            <td>{{ place.safe_staffing }}%</td>
           {% else %}
             <td>No data available</td>
           {% endif %}
 
-          {% if place.waiting_times.service_waiting_time_weeks %}
-            <td>{{ place.waiting_times.service_waiting_time_weeks | round}}</td>
+          {% if place.service_waiting_time_weeks %}
+            <td>{{ place.service_waiting_time_weeks }}</td>
           {% else %}
             <td>No data available</td>
           {% endif %}
 
-          {% if place.waiting_times.time_to_treatment_minutes %}
-            <td>{{ place.waiting_times.time_to_treatment_minutes }}</td>
+          {% if place.time_to_treatment_minutes %}
+            <td>{{ place.time_to_treatment_minutes }}</td>
           {% else %}
             <td>No data available</td>
           {% endif %}
 
-          {% if place.waiting_times.emergency_assesment_time != None %}
-            <td>{{ place.waiting_times.emergency_assesment_time }}</td>
+          {% if place.emergency_assesment_time %}
+            <td>{{ place.emergency_assesment_time }}</td>
           {% else %}
             <td>No data available</td>
           {% endif %}
 
-          {% if place.waiting_times.total_time_in_ae != None %}
-            <td>{{ place.waiting_times.total_time_in_ae }}</td>
+          {% if place.total_time_in_ae  %}
+            <td>{{ place.total_time_in_ae }}</td>
           {% else %}
             <td>No data available</td>
           {% endif %}
