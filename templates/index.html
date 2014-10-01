@@ -34,15 +34,19 @@
 <div id="main">
 <div class="row clearfix">
     <form id="compare-form" action="/compare" method="post">
-        <paper-button id="test2" label="Compare" class="submitbutton btn btn-default navbar-btn" raisedButton></paper-button>
-        <div id="hospitals-list" class="" style=""> </div> <div id="map-canvas"></div>
-        
-        <button  class="btn btn-default navbar-btn submitbutton">Compare</button>
+        <div id="hospitals-list" class="" style=""></div>
+        <paper-button role="button" id="test2" onclick="submit_compare();" label="Compare" class="submitbutton btn btn-default navbar-btn" raisedButton></paper-button>
     </form>
  
 
 </div>
 </div>
-</div>
+</div><div id="map-canvas"></div>
+
 </core-header-panel>
+<script>
+  function submit_compare() {
+      $("#compare-form").submit();
+  }
+</script>
 {% endblock %}
