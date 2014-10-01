@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block head %}
   <style>
-    #map-canvas { height: 500px; width: 850px; display: block; }
+    #map-canvas { height: 500px; width: 59%; display: inline; }
   </style>
   <link rel="import" href="static\bower_components\paper-icon-button\paper-icon-button.html">
   <link rel="import" href="static\bower_components\paper-button\paper-button.html">
@@ -32,16 +32,14 @@
   <div id="errors"></div>
 </div>
 <div id="main">
-<div class="row clearfix">
     <form id="compare-form" action="/compare" method="post">
-        <div id="hospitals-list" class="" style=""></div>
+        <div id="hospitals-list"></div>
         <paper-button role="button" id="test2" onclick="submit_compare();" label="Compare" class="submitbutton btn btn-default navbar-btn" raisedButton></paper-button>
     </form>
  
-
+<div id="map-canvas"></div>
 </div>
 </div>
-</div><div id="map-canvas"></div>
 
 </core-header-panel>
 <script>

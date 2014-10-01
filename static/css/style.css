@@ -20,8 +20,6 @@ body {
 }
 
 #main{
-    background-color:#EEEEEE;
-    width:40%;
 }
 
 .tfbutton {
@@ -59,12 +57,17 @@ body {
 }
 
 #hospitals-list {
+    background-color:#EEEEEE;
     max-height:460px;
     margin-left: 1%;
     font:16px/26px Georgia, Garamond, Serif;
     overflow:auto;
     min-height: 460px;
-    width:96%;
+}
+
+#compare-form {
+    display: inline-block;
+    width: 40%;
 }
 
 .hospital-detail td {
@@ -128,8 +131,10 @@ body {
 }
 
 #map-canvas {
+    display: inline-block;
         border:1px solid #ccc;
         float: right;
+        width: 50%;
 }
 
 #test {

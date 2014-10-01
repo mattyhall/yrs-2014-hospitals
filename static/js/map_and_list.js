@@ -65,6 +65,11 @@ function initialise_map() {
     // centre around sheffield
     var map_options = {center: new google.maps.LatLng(50.375456, -4.142656), zoom: 10};
     var map = new google.maps.Map(document.getElementById('map-canvas'), map_options);
+    google.maps.event.addDomListener(window, "resize", function() {
+       var center = map.getCenter();
+       google.maps.event.trigger(map, "resize");
+       map.setCenter(center); 
+    });
     // add the data to the map and to the list
     load_data(map);
 
