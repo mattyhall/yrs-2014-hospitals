@@ -34,7 +34,6 @@ body {
 }
 
 #main{
-    margin-top: 1%;
 }
 
 .tfbutton {
@@ -72,6 +71,7 @@ body {
 }
 
 #hospitals-list {
+    padding-top: 1%;
     max-height:460px;
     margin-left: 1%;
     font:16px/26px Georgia, Garamond, Serif;
@@ -146,6 +146,7 @@ body {
 }
 
 #map-canvas {
+    margin-top: 1%;
     display: inline-block;
     border:1px solid #ccc;
     float: right;
