@@ -1,50 +1,57 @@
+<!--ignore this part (Python) not currently in use-->
 {% extends "base.html" %}
 {% block head %}
-  <style>
-    #map-canvas { height: 500px;display: inline; }
-  </style>
-  <link rel="import" href="static\bower_components\paper-icon-button\paper-icon-button.html">
-  <link rel="import" href="static\bower_components\paper-button\paper-button.html">
-  <link rel="import" href="static\bower_components\core-header-panel\core-header-panel.html">
-  <link rel="import" href="static\bower_components\core-toolbar\core-toolbar.html">
-  <link rel="import" href="static\bower_components\paper-input\paper-input.html">
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNfQpxpOMsdfqIIKWBy2TU1dXJSD894SE"></script>
-  <script type="text/javascript" src="/static/js/map_and_list.js" /></script>
+<!--setting the style for the map canvas (may be moved soon)-->
+<style>
+  #map-canvas { height: 500px;display: inline; }
+</style>
+
+<!--importing the polymer elements for the web redesign-->
+<link rel="import" href="static\bower_components\paper-icon-button\paper-icon-button.html">
+<link rel="import" href="static\bower_components\paper-button\paper-button.html">
+<link rel="import" href="static\bower_components\core-header-panel\core-header-panel.html">
+<link rel="import" href="static\bower_components\core-toolbar\core-toolbar.html">
+<link rel="import" href="static\bower_components\paper-input\paper-input.html">
+<!--loading the scripts for the google maps element-->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNfQpxpOMsdfqIIKWBy2TU1dXJSD894SE"></script>
+<script type="text/javascript" src="/static/js/map_and_list.js" /></script>
+
+<!--ignore this part (Python) not currently in use-->
 {% endblock %}
 {% block content %}
-  <core-header-panel>
-    <core-toolbar>
-      <div>Hospital Finder</div><paper-icon-button id="searchbtn" icon="search"></paper-icon-button>  <paper-input id="search" type="text" name="q" maxlength="240" placeholder="Please enter a location or a hospital"> 
-   
-    </core-toolbar>
 
+<core-header-panel>
+  <!--bar at top of page-->
+  <core-toolbar>
+   <div>Hospital Finder</div><paper-icon-button id="searchbtn" icon="search"></paper-icon-button><paper-input id="search" type="text" name="q" maxlength="240" placeholder="Please enter a location or a hospital"> 
+  </core-toolbar>
 
-
-  <div class="row">
-  <div id="tfheader">
-    
-        
-    </div>
-  </div>
-</div>
-
-<div class="row clearfix">
+  <!-- not sure what this does XD-->
+  <div class="row clearfix"></div>
+  <!-- houses error messages (changing soon (hopefully))-->
   <div id="errors"></div>
-</div>
-<div id="main">
+  <!--styling for the grey bar, also houses main section of webpage-->
+  <div id="main">
+    <!-- used to send the compare options for processing-->
     <form id="compare-form" action="/compare" method="post">
-        <div id="hospitals-list"></div>
-        <paper-button role="button" id="test2" onclick="submit_compare();" label="Compare" class="submitbutton btn btn-default navbar-btn" raisedButton></paper-button>
-    </form>
- 
-<div id="map-canvas"></div>
-</div>
-</div>
+      <!--houses list of hospitals-->
+      <div id="hospitals-list"></div>
+     <!-- compare button, made to work by script at bottom of page-->
+      <paper-button role="button" id="test2" onclick="submit_compare();" label="Compare" class="submitbutton btn btn-default navbar-btn" raisedButton></paper-button>
+   </form>
+   <!--houses the map canvas-->
+   <div id="map-canvas"></div>
+  </div>
 
+<!--ends webpage here-->
 </core-header-panel>
+
+<!--fixes the compare button (do not remove!)-->
 <script>
   function submit_compare() {
       $("#compare-form").submit();
   }
 </script>
+
+<!--again python stuff (dont touch)-->
 {% endblock %}
